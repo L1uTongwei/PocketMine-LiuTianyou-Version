@@ -21,18 +21,18 @@
 
 class AchievementAPI{
 	public static $achievements = array(
-		/*"openInventory" => array(
-			"name" => "Taking Inventory",
+		"openInventory" => array(
+			"name" => "首次进入",
 			"requires" => array(),
-		),*/
+		),
 		"mineWood" => array(
 			"name" => "获得木头",
 			"requires" => array(
-				//"openInventory",
+				"openInventory",
 			),
 		),
 		"buildWorkBench" => array(
-			"name" => "制造时间",
+			"name" => "创造时间",
 			"requires" => array(
 				"mineWood",
 			),
@@ -62,7 +62,7 @@ class AchievementAPI{
 			),
 		),
 		"makeBread" => array(
-			"name" => "硬面包",
+			"name" => "法国面包",
 			"requires" => array(
 				"buildHoe",
 			),
@@ -91,7 +91,30 @@ class AchievementAPI{
 				"acquireIron",
 			),
 		),
-		
+		"abnormal" => array( //获得下界反应核
+			"name" => "反常物质",
+			"requires" => array(
+				"buildWorkBench",
+				"diamonds",
+			),
+		),
+		"greatsleep" => array(
+			"name" => "甜蜜的梦",
+			"requires" => array(
+				"buildWorkBench",
+			),
+		),
+		"peaceandlove" => array(
+			"name" => "和平礼物",
+			"requires" => array(
+			),
+		),
+		"wqnmlgb" => array(
+			"name" => "我去年买了个表[doge]",
+			"requires" => array(
+				"buildWprlBench",
+			),
+		),
 	);
 
 	function __construct(){

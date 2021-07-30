@@ -338,6 +338,7 @@ class Player{
 		}
 		$this->setSpawn($pos);
 		$this->server->schedule(60, array($this, "checkSleep"));
+		AchievementAPI::grantAchievement($this, "greatSleep");
 		return true;
 	}
 	
@@ -872,10 +873,13 @@ class Player{
 					case DIAMOND:
 						AchievementAPI::grantAchievement($this, "diamond");
 						break;
+					case NETHER_REACTOR:
+						AchievementAPI::grantAchievement($this, "abnormal");
 					case CAKE:
 						$this->addItem(BUCKET, 0, 3, false);
 						break;
-						
+					case CLOCK:
+						AchievementAPI::grantAchievement($this, "wqnmlgb");
 				}
 			}
 		}
@@ -1045,14 +1049,14 @@ class Player{
 				}
 			}
 			$this->gamemode = $gm;
-			$this->sendChat("Your gamemode has been changed to ".$this->getGamemode().".\n");
+			$this->sendChat("你的游戏模式现已更改为 ".$this->getGamemode().".\n");
 		}else{
 			foreach($this->inventory as $slot => $item){
 				$inv[$slot] = BlockAPI::getItem(AIR, 0, 0);
 			}
 			$this->blocked = true;
 			$this->gamemode = $gm;
-			$this->sendChat("Your gamemode has been changed to ".$this->getGamemode().", you've to do a forced reconnect.\n");
+			$this->sendChat("你的游戏模式现已更改为 ".$this->getGamemode()." ，你必须强制退出重进。\n");
 			$this->server->schedule(30, array($this, "close"), "gamemode change"); //Forces a kick
 		}
 		$this->inventory = $inv;
@@ -1249,7 +1253,8 @@ class Player{
 		}
 	}
 
-	public function handleDataPacket(RakNetDataPacket $packet){
+	public function handleDataPacket(RakNetDataPacket $packet){ 
+		//此处不汉化的原因是MCPE无法接收中文结束信息
 		if($this->connected === false){
 			return;
 		}
@@ -1468,7 +1473,7 @@ class Player{
 						$this->sendChat("服主LiuTianyou将会尽力完善插件以及服务器体验，目前修复了很多Bug。\n");
 						
 						if($this->iusername === "steve" or $this->iusername === "stevie"){
-							$this->sendChat("You're using the default username. Please change it on the Minecraft PE settings.\n");
+							$this->sendChat("你正在使用默认的名称，请在设置中修改。\n");
 						}
 						$this->sendInventory();
 						$this->sendSettings();

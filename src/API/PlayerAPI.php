@@ -69,6 +69,7 @@ class PlayerAPI{
                         switch($e->class){
                             case ENTITY_PLAYER:
                                 $message = " 被 ".$e->name." 杀死了";
+                                AchievementAPI::grantAchievement($data["player"], "loveandpeace");
                                 break;
                             default:
                                 $message = " 被杀了";
