@@ -37,22 +37,22 @@ set_error_handler("error_handler", E_ALL);
 $errors = 0;
 
 if(version_compare("5.4.0", PHP_VERSION) > 0){
-	console("[ERROR] Use PHP >= 5.4.0", true, true, 0);
+	console("[ERROR] PHP 版本 >= 5.4.0", true, true, 0);
 	++$errors;
 }
 
 if(php_sapi_name() !== "cli"){
-	console("[ERROR] You must run PocketMine-MP using the CLI.", true, true, 0);
+	console("[ERROR] 你必须在命令行内使用PocketMine-MP。", true, true, 0);
 	++$errors;
 }
 
 if(!extension_loaded("sockets") and @dl((PHP_SHLIB_SUFFIX === "dll" ? "php_":"") . "sockets." . PHP_SHLIB_SUFFIX) === false){
-	console("[ERROR] Unable to find the Socket extension.", true, true, 0);
+	console("[ERROR] 找不到socket扩展。", true, true, 0);
 	++$errors;
 }
 
 if(!extension_loaded("pthreads") and @dl((PHP_SHLIB_SUFFIX === "dll" ? "php_":"") . "pthreads." . PHP_SHLIB_SUFFIX) === false){
-	console("[ERROR] Unable to find the pthreads extension.", true, true, 0);
+	console("[ERROR] 找不到pthreads扩展。", true, true, 0);
 	++$errors;
 }else{
 	$pthreads_version = phpversion("pthreads");
@@ -60,33 +60,33 @@ if(!extension_loaded("pthreads") and @dl((PHP_SHLIB_SUFFIX === "dll" ? "php_":""
 		$pthreads_version = "0.$pthreads_version";
 	}
 	if(version_compare($pthreads_version, "0.1.0") < 0){
-		console("[ERROR] pthreads >= 0.1.0 is required, while you have $pthreads_version.", true, true, 0);
+		console("[ERROR] pthreads 版本必须 >= 0.1.0，但你的版本是 $pthreads_version.", true, true, 0);
 		++$errors;
 	}	
 }
 
 if(!extension_loaded("curl") and @dl((PHP_SHLIB_SUFFIX === "dll" ? "php_":"") . "curl." . PHP_SHLIB_SUFFIX) === false){
-	console("[ERROR] Unable to find the cURL extension.", true, true, 0);
+	console("[ERROR] 找不到curl扩展。", true, true, 0);
 	++$errors;
 }
 
 if(!extension_loaded("sqlite3") and @dl((PHP_SHLIB_SUFFIX === "dll" ? "php_":"") . "sqlite3." . PHP_SHLIB_SUFFIX) === false){
-	console("[ERROR] Unable to find the SQLite3 extension.", true, true, 0);
+	console("[ERROR] 找不到sqlite3扩展。", true, true, 0);
 	++$errors;
 }
 
 if(!extension_loaded("yaml") and @dl((PHP_SHLIB_SUFFIX === "dll" ? "php_":"") . "yaml." . PHP_SHLIB_SUFFIX) === false){
-	console("[ERROR] Unable to find the YAML extension.", true, true, 0);
+	console("[ERROR] 找不到yaml扩展。", true, true, 0);
 	++$errors;
 }
 
 if(!extension_loaded("zlib") and @dl((PHP_SHLIB_SUFFIX === "dll" ? "php_":"") . "zlib." . PHP_SHLIB_SUFFIX) === false){
-	console("[ERROR] Unable to find the Zlib extension.", true, true, 0);
+	console("[ERROR] 找不到zlib扩展。", true, true, 0);
 	++$errors;
 }
 
 if($errors > 0){
-	console("[ERROR] Please use the installer provided on the homepage, or recompile PHP again.", true, true, 0);
+	console("[ERROR] 请前往pecl.php.net安装扩展，或重新编译PHP（需要线程安全版本）。", true, true, 0);
 	exit(1); //Exit with error
 }
 

@@ -28,6 +28,15 @@ require_once(FILE_PATH."/src/dependencies.php");
 /***REM_END***/
 
 $server = new ServerAPI();
+
+function handler($sig){
+    global $server;
+    $server->request()->close();
+}
+if(Utils::getOS() == "linux"){ //Windows PHP不支持Pcntl扩展，这使得它无法进行信号处理，我正在想办法解决问题
+    pcntl_signal(SIGINT, "handler"); 
+}
+
 $server->start();
 
 kill(getmypid()); //Fix for ConsoleAPI being blocked

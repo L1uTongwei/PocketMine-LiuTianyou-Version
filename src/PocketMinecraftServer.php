@@ -113,7 +113,7 @@ class PocketMinecraftServer{
 	
 	public function checkTicks(){
 		if($this->getTPS() < 12){
-			console("[WARNING] Can't keep up! Is the server overloaded?");
+			console("[WARNING] 同步出现问题，服务器可能过载（除非很卡，否则请忽略）");
 		}
 	}
 	
@@ -188,7 +188,7 @@ class PocketMinecraftServer{
 			}
 			if(($this->api instanceof ServerAPI) === true){
 				if(($this->api->chat instanceof ChatAPI) === true){
-					$this->api->chat->broadcast("Stopping server...");
+					$this->api->chat->broadcast("服务器正在停止……");
 				}
 			}
 			$this->stop = true;
@@ -286,7 +286,7 @@ class PocketMinecraftServer{
 		}elseif(isset(Deprecation::$events[$event])){
 			$sub = "";
 			if(Deprecation::$events[$event] !== false){
-				$sub = " Substitute \"".Deprecation::$events[$event]."\" found.";
+				$sub = " Substitute \"".Deprecation::$events[$event]."\" found."; //不知道怎么翻译
 			}
 			console("[ERROR] Event \"$event\" has been deprecated.$sub [Adding handle to ".(is_array($callable) ? get_class($callable[0])."::".$callable[1]:$callable)."]");
 		}
@@ -378,9 +378,9 @@ class PocketMinecraftServer{
 			pcntl_signal(SIGINT, array($this, "close"));
 			pcntl_signal(SIGHUP, array($this, "close"));
 		}
-		console("[INFO] Default game type: ".strtoupper($this->getGamemode()));
+		console("[INFO] 默认游戏模式： ".strtoupper($this->getGamemode()));
 		$this->trigger("server.start", microtime(true));
-		console('[INFO] Done ('.round(microtime(true) - START_TIME, 3).'s)! For help, type "help" or "?"');
+		console('[INFO] 完成 （用时'.round(microtime(true) - START_TIME, 3).'s）！ 如需帮助， 输入 "help" 或 "?"');
 		$this->process();
 	}
 
@@ -388,7 +388,7 @@ class PocketMinecraftServer{
 		if($this->stop === true){
 			return;
 		}
-		console("[SEVERE] An unrecovereable has ocurred and the server has crashed. Creating an error dump");
+		console("[SEVERE] 一个无法恢复的错误发生了。正在记录日志……");
 		$dump = "```\r\n# PocketMine-MP Error Dump ".date("D M j H:i:s T Y")."\r\n";
 		$er = error_get_last();
 		$errorConversion = array(
