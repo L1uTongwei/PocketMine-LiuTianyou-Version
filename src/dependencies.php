@@ -20,9 +20,9 @@
 */
 
 /***REM_START***/
-require_once(dirname(__FILE__)."/config.php");
-require_once(FILE_PATH."/src/utils/TextFormat.php");
-require_once(FILE_PATH."/src/functions.php");
+require_once("config.php");
+require_once("utils/TextFormat.php");
+require_once("functions.php");
 /***REM_END***/
 define("DATA_PATH", realpath(arg("data-path", FILE_PATH))."/");
 
@@ -92,9 +92,9 @@ if($errors > 0){
 
 $sha1sum = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
 /***REM_START***/
-require_once(FILE_PATH."/src/math/Vector3.php");
-require_once(FILE_PATH."/src/world/Position.php");
-require_once(FILE_PATH."/src/pmf/PMF.php");
+require_once("math/Vector3.php");
+require_once("world/Position.php");
+require_once("pmf/PMF.php");
 
 require_all(FILE_PATH . "src/");
 

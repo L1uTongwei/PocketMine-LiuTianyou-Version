@@ -1470,7 +1470,8 @@ class Player{
 						$this->sendChat("这个服务器使用了基于PocketMine Alpha_1.3.12版本的刘天佑改版。\n");
 						$this->sendChat("根据LGPL协议，修改的源代码现已公布，可在以下的Github仓库观看。\n");
 						$this->sendChat("https://github.com/LiuTianyouOnLuogu/PocketMine-LiuTianyou-Version\n");
-						$this->sendChat("服主LiuTianyou将会尽力完善插件以及服务器体验，目前修复了很多Bug。\n");
+						$this->sendChat("\n");
+						$this->sendChat($this->server->motd."\n");
 						
 						if($this->iusername === "steve" or $this->iusername === "stevie"){
 							$this->sendChat("你正在使用默认的名称，请在设置中修改。\n");

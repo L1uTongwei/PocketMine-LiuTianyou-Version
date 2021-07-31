@@ -60,6 +60,10 @@ threads文件夹有threads_VC2.dll php_threads.dll
 
 **安装mintty是可选的，如果你不需要，你可以不用下载Cygwin和制作图标**
 
+### Linux & Mac
+
+运行src/build/compile.sh和installer.sh，进行自动安装。
+
 ### 内网穿透
 
 1. 下面说我们的重点：内网穿透。
@@ -96,3 +100,6 @@ threads文件夹有threads_VC2.dll php_threads.dll
 ![](https://cdn.luogu.com.cn/upload/image_hosting/43z2ut50.png)
 
 这里有一个深坑啊，解析之后别立马尝试，要等待1-5分钟，否则域名解析不生效也不行
+
+### 给高级用户的建议
+

@@ -20,7 +20,7 @@
 */
 
 /***REM_START***/
-require_once(FILE_PATH."/src/pmf/PMF.php");
+require_once("PMF.php");
 /***REM_END***/
 
 define("PMF_CURRENT_PLUGIN_VERSION", 0x02);
