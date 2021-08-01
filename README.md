@@ -42,23 +42,9 @@ threads文件夹有threads_VC2.dll php_threads.dll
 
 把不带php_前缀复制到C:\Windows和php文件夹内，带php_前缀的复制到php\ext\文件夹内（那个文件夹都是带php_前缀的）
 
-4. 下面说怎么配置MinTTY：
+4. 运行
 
-首先，MinTTY需要Cygwin环境（不要直接下载），可以看这个：https://blog.csdn.net/lvsehaiyang1993/article/details/81027399
-
-注意：配置镜像时可以使用mirror.aliyun.com，速度显著增快。
-
-不用安装多余的包，Cygwin自带MinTTY。
-
-然后从C:\cygwin64\bin（默认的）文件夹内找到MinTTY.exe和cygwin1.dll，复制（不是剪切）到PocketMine的bin文件夹内，此时，你的bin文件夹内应该是这样的：
-
-![](https://cdn.luogu.com.cn/upload/image_hosting/dihxq017.png)
-
-选择128*128，链接输入http://www.pocketmine.net/favicon.png，生成重命名即可。
-
-如果你有MinTTY，运行start.cmd，否则运行start_without_mintty.cmd，按照指引选择zh，配置文件即可（可以参考其他教程）
-
-**安装mintty是可选的，如果你不需要，你可以不用下载Cygwin和制作图标**
+运行start.bat，按照安装向导指示。
 
 ### Linux & Mac
 
@@ -101,5 +87,24 @@ threads文件夹有threads_VC2.dll php_threads.dll
 
 这里有一个深坑啊，解析之后别立马尝试，要等待1-5分钟，否则域名解析不生效也不行
 
-### 给高级用户的建议
+### 本次提交的更新日志
 
+1. 删除了RCON远程控制台协议，简化代码
+
+如果想使用RCON，请退回上一个版本。
+
+2. 管理员掉血BUG的曲线救国修复
+
+目前无法找出管理员为何无故掉血，可能和飞行事件之类的有关。
+
+所以加入了safe_mode，顺便解决了冒用管理员用户名炸图的行为。
+
+如果有第三方验证插件，请关闭safe_mode。
+
+3. 删除了installer多语言支持
+
+都用中文，所以installer用别的语言无意义。
+
+4. 删除MinTTY支持
+
+有一个bug，导致无法在console里直接输入，砍了。

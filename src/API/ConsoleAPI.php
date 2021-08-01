@@ -106,9 +106,6 @@ class ConsoleAPI{
 						$output .= "难度已经调整为 ".$this->server->difficulty."\n";
 						break;
 					case "?":
-						if($issuer !== "console" and $issuer !== "rcon"){
-							break;
-						}
 					case "help":
 						if(isset($params[0]) and !is_numeric($params[0])){
 							$c = trim(strtolower($params[0]));

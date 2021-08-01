@@ -27,7 +27,6 @@ class ServerAPI{
 	private $config;
 	private $apiList = array();
 	private $asyncCnt = 0;
-	private $rcon;
 	
 	public $query;
 
@@ -118,7 +117,6 @@ class ServerAPI{
 			"server-port" => 19132,
 			"server-type" => "normal",
 			"memory-limit" => "128M",
-			"last-update" => false,
 			"white-list" => false,
 			"announce-player-achievements" => true,
 			"spawn-protection" => 16,
@@ -136,10 +134,9 @@ class ServerAPI{
 			"level-seed" => "",
 			"level-type" => "DEFAULT",
 			"enable-query" => true,
-			"enable-rcon" => false,
-			"rcon.password" => substr(base64_encode(Utils::getRandomBytes(20, false)), 3, 10),
 			"send-usage" => true,
 			"auto-save" => true,
+			"safe_mode" => true,
 		));
 		
 		$this->parseProperties();
@@ -164,50 +161,7 @@ class ServerAPI{
 		console("[INFO] 这是LiuTianyouOnLuogu@Github的改版，代码仓库：", true, true, 0);
 		console("[INFO] https://github.com/LiuTianyouOnLuogu/PocketMine-LiuTianyou-Version", true, true, 0);
 
-		if($this->getProperty("last-update") === false or ($this->getProperty("last-update") + 3600) < time()){
-			console("[INFO] 正在检查新版本……");
-			console("[INFO] 上一次检查： ".FORMAT_AQUA.date("Y-m-d H:i:s", $this->getProperty("last-update"))."\x1b[0m");
-			if($this->server->version->isDev()){
-				$info = json_decode(Utils::curl_get("https://api.github.com/repos/PocketMine/PocketMine-MP/commits"), true);
-				if($info === false or !isset($info[0])){
-					console("[ERROR] Github API 错误");
-				}else{
-					$last = new DateTime($info[0]["commit"]["committer"]["date"]);
-					$last = $last->getTimestamp();
-					if($last >= $this->getProperty("last-update") and $this->getProperty("last-update") !== false and GIT_COMMIT != $info[0]["sha"]){
-						console("[NOTICE] ".FORMAT_YELLOW."一个新的PocketMine-MP开发版本发布了！");
-						console("[NOTICE] ".FORMAT_YELLOW."Commit \"".$info[0]["commit"]["message"]."\" [".substr($info[0]["sha"], 0, 10)."] by ".$info[0]["commit"]["committer"]["name"]);
-						console("[NOTICE] ".FORMAT_YELLOW."在PocketMine.net或https://github.com/PocketMine/PocketMine-MP/archive/".$info[0]["sha"].".zip上更新。");
-						console("[NOTICE] 在提交命令\"/update-done\"后，这个信息不会出现。");
-					}else{
-						$this->setProperty("last-update", time());
-						console("[INFO] ".FORMAT_AQUA."这是最新的开发版本。");
-					}
-				}
-			}else{
-				$info = json_decode(Utils::curl_get("https://api.github.com/repos/PocketMine/PocketMine-MP/tags"), true);
-				if($info === false or !isset($info[0])){
-					console("[ERROR] Github API 错误");
-				}else{
-					$newest = new VersionString(MAJOR_VERSION);
-					$newestN = $newest->getNumber();
-					$update = new VersionString($info[0]["name"]);
-					$updateN = $update->getNumber();
-					if($updateN > $newestN){
-						console("[NOTICE] ".FORMAT_GREEN."一个新的PocketMine-MP稳定版本发布了！");
-						console("[NOTICE] ".FORMAT_GREEN."版本 \"".$info[0]["name"]."\" #".$updateN);
-						console("[NOTICE] 在PocketMine.net 或在".$info[0]["zipball_url"]."上更新。");
-						console("[NOTICE] 你一完成更新，这个信息就不会出现。");
-					}else{
-						$this->setProperty("last-update", time());
-						console("[INFO] ".FORMAT_AQUA."这是最新的稳定版本。");
-					}
-				}
-			}
-		}
-
 		$this->loadProperties();
-		
 		
 		$this->loadAPI("console", "ConsoleAPI");
 		$this->loadAPI("level", "LevelAPI");
@@ -303,6 +257,7 @@ class ServerAPI{
 			$this->server->gamemode = $this->getProperty("gamemode");
 			$this->server->difficulty = $this->getProperty("difficulty");
 			$this->server->whitelist = $this->getProperty("white-list");
+			$this->server->safeMode = $this->getProperty("safe_mode");
 		}
 	}
 
@@ -313,13 +268,6 @@ class ServerAPI{
 	private function parseProperties(){
 		foreach($this->config->getAll() as $n => $v){
 			switch($n){
-				case "last-update":
-					if($v === false){
-						$v = time();
-					}else{
-						$v = (int) $v;
-					}
-					break;
 				case "gamemode":
 				case "max-players":
 				case "server-port":
@@ -352,9 +300,6 @@ class ServerAPI{
 		if($this->getProperty("auto-save") === true){
 			$this->server->schedule(18000, array($this, "autoSave"), array(), true);	
 		}
-		if(!defined("NO_THREADS") and $this->getProperty("enable-rcon") === true){
-			$this->rcon = new RCON($this->getProperty("rcon.password", ""), $this->getProperty("rcon.port", $this->getProperty("server-port")), ($ip = $this->getProperty("server-ip")) != "" ? $ip:"0.0.0.0", $this->getProperty("rcon.threads", 1), $this->getProperty("rcon.clients-per-thread", 50));
-		}
 
 		if($this->getProperty("enable-query") === true){
 			$this->query = new QueryHandler();
@@ -363,9 +308,6 @@ class ServerAPI{
 		$this->server->init();
 		unregister_tick_function(array($this->server, "tick"));
 		$this->console->__destruct();
-		if($this->rcon instanceof RCON){
-			$this->rcon->stop();
-		}
 		$this->__destruct();
 		if($this->getProperty("upnp-forwarding") === true ){
 			console("[INFO] [UPnP] Removing port forward...");
@@ -427,13 +369,6 @@ class ServerAPI{
 					break;
 			}
 			switch($name){
-				case "last-update":
-					if($v === false){
-						$v = time();
-					}else{
-						$v = (int) $v;
-					}
-					break;
 				case "gamemode":
 				case "max-players":
 				case "server-port":

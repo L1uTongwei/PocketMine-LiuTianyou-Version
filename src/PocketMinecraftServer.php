@@ -23,6 +23,7 @@ class PocketMinecraftServer{
 	public $tCnt;
 	public $serverID, $interface, $database, $version, $invisible, $tickMeasure, $preparedSQL, $seed, $gamemode, $name, $maxClients, $clients, $eidCnt, $custom, $description, $motd, $port, $saveEnabled;
 	private $serverip, $evCnt, $handCnt, $events, $eventsID, $handlers, $serverType, $lastTick, $ticks, $memoryStats, $async = array(), $asyncID = 0;
+	public $safe_mode;
 
 	/**
 	 * @var ServerAPI
@@ -432,9 +433,6 @@ class PocketMinecraftServer{
 		global $arguments;
 		$dump .= "Parameters: ".var_export($arguments, true)."\r\n\r\n\r\n";
 		$p = $this->api->getProperties();
-		if($p["rcon.password"] != ""){
-			$p["rcon.password"] = "******";
-		}
 		$dump .= "server.properties: ".var_export($p, true)."\r\n\r\n\r\n";
 		if($this->api->plugin instanceof PluginAPI){
 			$plist = $this->api->plugin->getList();

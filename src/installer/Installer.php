@@ -30,20 +30,7 @@
 		
 		private $lang, $config;
 		public function __construct(){
-			echo "[*] PocketMine-MP set-up wizard\n";
-			echo "[*] Please select a language:\n";
-			foreach(InstallerLang::$languages as $short => $native){
-				echo " $native => $short\n";
-			}
-			do{
-				echo "[?] Language (en): ";
-				$lang = strtolower($this->getInput("en"));
-				if(!isset(InstallerLang::$languages[$lang])){
-					echo "[!] Couldn't find the language\n";
-					$lang = false;
-				}
-			}while($lang == false);
-			$this->lang = new InstallerLang($lang);
+			$this->lang = new InstallerLang("zh");
 			echo "[*] ".$this->lang->language_has_been_selected."\n";
 			echo "[?] ".$this->lang->skip_installer." (y/N): ";
 			if(strtolower($this->getInput()) === "y"){
@@ -116,16 +103,6 @@ LICENSE;
 		}
 		
 		private function generateUserFiles(){
-			echo "[*] ".$this->lang->op_info."\n";
-			echo "[?] ".$this->lang->op_who.": ";
-			$op = strtolower($this->getInput(""));
-			if($op === ""){
-				echo "[!] ".$this->lang->op_warning."\n";
-			}else{
-				$ops = new Config(DATA_PATH."ops.txt", CONFIG_LIST);
-				$ops->set($op, true);
-				$ops->save();
-			}
 			echo "[*] ".$this->lang->whitelist_info."\n";
 			echo "[?] ".$this->lang->whitelist_enable." (y/N): ";
 			$config = new Config(DATA_PATH . "server.properties", CONFIG_PROPERTIES);
@@ -149,16 +126,6 @@ LICENSE;
 				$config->set("enable-query", true);
 			}
 			
-			echo "[*] ".$this->lang->rcon_info."\n";
-			echo "[?] ".$this->lang->rcon_enable." (y/N): ";
-			if(strtolower($this->getInput("n")) === "y"){
-				$config->set("enable-rcon", true);
-				$password = substr(base64_encode(Utils::getRandomBytes(20, false)), 3, 10);
-				$config->set("rcon.password", $password);
-				echo "[*] ".$this->lang->rcon_password.": ".$password."\n";
-			}else{
-				$config->set("enable-rcon", false);
-			}
 
 			echo "[*] ".$this->lang->usage_info."\n";
 			echo "[?] ".$this->lang->usage_disable." (y/N): ";

@@ -55,11 +55,7 @@ class ChatAPI{
 				break;
 			case "me":
 				if(!($issuer instanceof Player)){
-					if($issuer === "rcon"){
-						$sender = "Rcon";
-					}else{
-						$sender = ucfirst($issuer);
-					}
+					$sender = ucfirst($issuer);
 				}else{
 					$sender = $issuer->username;
 				}
@@ -81,13 +77,13 @@ class ChatAPI{
 					$target = $target->username;
 				}else{
 					$target = strtolower($n);
-					if($target === "server" or $target === "console" or $target === "rcon"){
+					if($target === "server" or $target === "console"){
 						$target = "Console";
 					}
 				}
 				$mes = implode(" ", $params);
 				$output .= "[me -> ".$target."] ".$mes."\n";
-				if($target !== "Console" and $target !== "Rcon"){
+				if($target !== "Console"){
 					$this->sendTo(false, "[".$sender." -> me] ".$mes, $target);
 				}
 				if($target === "Console" or $sender === "Console"){

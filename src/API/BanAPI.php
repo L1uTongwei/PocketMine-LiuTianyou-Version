@@ -114,7 +114,7 @@ class BanAPI{
 					if($this->server->api->handle("console.check", $data) === true or $this->isOp($data["issuer"]->iusername)){
 						return;
 					}
-				}elseif($data["issuer"] === "console" or $data["issuer"] === "rcon"){
+				}elseif($data["issuer"] === "console"){
 					return;
 				}
 				return false;
@@ -148,6 +148,9 @@ class BanAPI{
 				if($user == NULL){
 				  $output .= "用法： /op <玩家名称>\n";
 				  break;
+				}
+				if($this->server->safeMode != 0){
+					$output .= "警告：服务器开启了安全模式，不允许服务器管理员存在，如果你有验证插件，请关闭安全模式。";
 				}
 				$player = $this->server->api->player->get($user);
 				if(!($player instanceof Player)){
