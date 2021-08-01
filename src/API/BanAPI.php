@@ -151,6 +151,7 @@ class BanAPI{
 				}
 				if($this->server->safeMode != 0){
 					$output .= "警告：服务器开启了安全模式，不允许服务器管理员存在，如果你有验证插件，请关闭安全模式。";
+					break;
 				}
 				$player = $this->server->api->player->get($user);
 				if(!($player instanceof Player)){
