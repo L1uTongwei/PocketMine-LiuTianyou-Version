@@ -182,7 +182,7 @@ class PocketMinecraftServer{
     /**
      * @param string $reason
      */
-    public function close($reason = "server stop"){
+    public function close($reason = "服务器停止"){
 		if($this->stop !== true){
 			if(is_int($reason)){
 				$reason = "signal stop";

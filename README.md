@@ -89,7 +89,11 @@ threads文件夹有threads_VC2.dll php_threads.dll
 
 ### 本次提交的更新日志
 
-1. 增加了不使用安全模式的提示
+### 有关版本号的约定
+
+版本号固定为Alpha_1.3.12(Hack Version Alpha_1.x.x)，适用于MCPE Alpha_0.8.1（也许0.9.x也能用吧）
+
+目前的版本代号以半条命的人物命名，例：戈登·弗里曼（Gordon Freeman）
 
 ### 招募
 

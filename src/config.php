@@ -39,8 +39,8 @@ set_include_path(get_include_path() . PATH_SEPARATOR . FILE_PATH);
 ini_set("memory_limit", "128M"); //Default
 define("LOG", true);
 define("START_TIME", microtime(true));
-define("MAJOR_VERSION", "Alpha_1.3.12");
-define("CODENAME", "甘い(Amai)ビートルート(Beetroot)");
+define("MAJOR_VERSION", "Alpha_1.3.12 (Hack Version 1.1)"); //1.x表示汉化完全
+define("CODENAME", "戈登·弗里曼（Gordon Freeman）");
 define("CURRENT_MINECRAFT_VERSION", "v0.8.1 alpha");
 define("CURRENT_API_VERSION", 12);
 define("CURRENT_PHP_VERSION", "5.5");

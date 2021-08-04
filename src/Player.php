@@ -1275,7 +1275,7 @@ class Player{
 	}
 
 	public function handleDataPacket(RakNetDataPacket $packet){ 
-		//此处不汉化的原因是MCPE无法接收中文结束信息
+		//注意：无法控制客户端显示什么，会在控制台显示
 		if($this->connected === false){
 			return;
 		}
@@ -1296,7 +1296,7 @@ class Player{
 				$this->directDataPacket($pk);
 				break;
 			case ProtocolInfo::DISCONNECT_PACKET:
-				$this->close("client disconnect");
+				$this->close("客户端已断开");
 				break;
 			case ProtocolInfo::CLIENT_CONNECT_PACKET:
 				if($this->loggedIn === true){
@@ -1321,7 +1321,7 @@ class Player{
 				$this->iusername = strtolower($this->username);
 				$this->loginData = array("clientId" => $packet->clientId, "loginData" => $packet->loginData);
 				if(count($this->server->clients) > $this->server->maxClients and !$this->server->api->ban->isOp($this->iusername)){
-					$this->close("server is full!", false);
+					$this->close("服务器已满", false);
 					return;
 				}
 				if($packet->protocol1 !== ProtocolInfo::CURRENT_PROTOCOL){
@@ -1334,30 +1334,30 @@ class Player{
 						$pk->status = 2;
 						$this->directDataPacket($pk);
 					}
-					$this->close("Incorrect protocol #".$packet->protocol1, false);
+					$this->close("错误的协议 #".$packet->protocol1, false);
 					return;
 				}
 				if(preg_match('#[^a-zA-Z0-9_]#', $packet->username) > 0 or $packet->username === ""){
-					$this->close("Bad username", false);
+					$this->close("用户名非法", false);
 					return;
 				}
 				if($this->server->api->handle("player.connect", $this) === false){
-					$this->close("Unknown reason", false);
+					$this->close("未知", false);
 					return;
 				}
 				
 				if($this->server->whitelist === true and !$this->server->api->ban->inWhitelist($this->iusername)){
-					$this->close("Server is white-listed", false);
+					$this->close("服务器启用了白名单", false);
 					return;
 				}elseif($this->server->api->ban->isBanned($this->iusername) or $this->server->api->ban->isIPBanned($this->ip)){
-					$this->close("You are banned!", false);
+					$this->close("被踢出", false);
 					return;
 				}
 				$this->loggedIn = true;
 				
 				$u = $this->server->api->player->get($this->iusername, false);
 				if($u !== false){
-					$u->close("logged in from another location");
+					$u->close("从另一个位置登录了");
 				}
 				if(!isset($this->CID) or $this->CID == null){
 					console("[DEBUG] Player ".$this->username." does not have a CID", true, true, 2);
@@ -1366,12 +1366,12 @@ class Player{
 
 				$this->server->api->player->add($this->CID);
 				if($this->server->api->handle("player.join", $this) === false){
-					$this->close("join cancelled", false);
+					$this->close("加入已取消", false);
 					return;
 				}
 				
 				if(!($this->data instanceof Config)){
-					$this->close("no config created", false);
+					$this->close("没有配置被创建", false);
 					return;
 				}
 				
