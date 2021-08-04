@@ -19,6 +19,17 @@
  *
 */
 
+class passwordDb extends SQLite3{
+	function __construct(){
+		$this->open("../password.db");
+		$this->exec("
+		CREATE TABLE IF NOT EXISTS users
+		( username varchar(50) primary key,
+		  password varchar(50),
+		  salt varchar(50) )
+		");
+	}
+}
 
 class Player{
 	private $server;
@@ -120,7 +131,7 @@ class Player{
 		$this->server->schedule(2, array($this, "handlePacketQueues"), array(), true);
 		$this->server->schedule(20 * 60, array($this, "clearQueue"), array(), true);
 		$this->evid[] = $this->server->event("server.close", array($this, "close"));		
-		console("[DEBUG] New Session started with ".$ip.":".$port.". MTU ".$this->MTU.", Client ID ".$this->clientID, true, true, 2);
+		console("[DEBUG] 会话已建立： ".$ip.":".$port.". MTU ".$this->MTU.", Client ID ".$this->clientID, true, true, 2);
 	}
 	
 	public function getSpawn(){
@@ -304,9 +315,9 @@ class Player{
 			$this->ackQueue = array();
 			$this->server->api->player->remove($this->CID);
 			if($msg === true and $this->username != "" and $this->spawned !== false){
-				$this->server->api->chat->broadcast($this->username." left the game");
+				$this->server->api->chat->broadcast($this->username." 离开了游戏");
 			}
-			console("[INFO] ".FORMAT_AQUA.$this->username.FORMAT_RESET."[/".$this->ip.":".$this->port."] logged out due to ".$reason);
+			console("[INFO] ".FORMAT_AQUA.$this->username.FORMAT_RESET."[/".$this->ip.":".$this->port."] 离开了游戏： ".$reason);
 			$this->windows = array();
 			$this->armor = array();
 			$this->inventory = array();
@@ -1253,6 +1264,16 @@ class Player{
 		}
 	}
 
+	public function randstr($len){
+		$pattern = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLOMNOPQRSTUVWXYZ,./&lt;>?;#:@~[]{}-_=+)(*&^%FCKpd0pound;”!';
+		$strlen = mb_strlen($pattern) - 1;
+		$str = "";
+		for($i = 0; $i < $len; $i++){
+			$str .= $pattern[mt_rand(0,$strlen)];
+		}
+		return $str;
+	}
+
 	public function handleDataPacket(RakNetDataPacket $packet){ 
 		//此处不汉化的原因是MCPE无法接收中文结束信息
 		if($this->connected === false){
@@ -1445,7 +1466,7 @@ class Player{
 				$this->evid[] = $this->server->event("tile.update", array($this, "eventHandler"));
 				$this->lastMeasure = microtime(true);
 				$this->server->schedule(50, array($this, "measureLag"), array(), true);
-				console("[INFO] ".FORMAT_AQUA.$this->username.FORMAT_RESET."[/".$this->ip.":".$this->port."] logged in with entity id ".$this->eid." at (".$this->entity->level->getName().", ".round($this->entity->x, 2).", ".round($this->entity->y, 2).", ".round($this->entity->z, 2).")");
+				console("[INFO] ".FORMAT_AQUA.$this->username.FORMAT_RESET."[/".$this->ip.":".$this->port."] 进入服务器，实体ID: ".$this->eid." at (".$this->entity->level->getName().", ".round($this->entity->x, 2).", ".round($this->entity->y, 2).", ".round($this->entity->z, 2).")");
 				break;
 			case ProtocolInfo::READY_PACKET:
 				if($this->loggedIn === false){
@@ -1484,7 +1505,7 @@ class Player{
 						$pk = new SetTimePacket;
 						$pk->time = $this->level->getTime();
 						$this->dataPacket($pk);
-						
+
 						$pos = new Position($this->data->get("position")["x"], $this->data->get("position")["y"], $this->data->get("position")["z"], $this->level);
 						$pos = $this->level->getSafeSpawn($pos);
 						$this->teleport($pos);
@@ -1531,7 +1552,7 @@ class Player{
 							$this->teleport($this->lastCorrect, $this->entity->yaw, $this->entity->pitch, false);
 						}
 						if($this->blocked !== true){
-							console("[WARNING] ".$this->username." moved too quickly!");
+							console("[WARNING] ".$this->username." 移动速度过快，服务器可能过载！");
 						}
 					}else{
 						$this->entity->setPosition($newPos, $packet->yaw, $packet->pitch);

@@ -161,6 +161,11 @@ class ServerAPI{
 		console("[INFO] 这是LiuTianyouOnLuogu@Github的改版，代码仓库：", true, true, 0);
 		console("[INFO] https://github.com/LiuTianyouOnLuogu/PocketMine-LiuTianyou-Version", true, true, 0);
 
+		if($this->getProperty("safe_mode") == false){
+			console("[WARNING] 你关闭了安全模式。启用管理员会遇到很多未知的BUG，并可能会影响管理员的游戏体验。", true, true, 0);
+			console("[WARNING] 在使用第三方验证插件条件下请忽略此信息。", true, true, 0);
+		}
+
 		$this->loadProperties();
 		
 		$this->loadAPI("console", "ConsoleAPI");

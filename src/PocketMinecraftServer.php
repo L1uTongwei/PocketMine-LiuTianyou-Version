@@ -114,7 +114,7 @@ class PocketMinecraftServer{
 	
 	public function checkTicks(){
 		if($this->getTPS() < 12){
-			console("[WARNING] 同步出现问题，服务器可能过载（除非很卡，否则请忽略）");
+			console("[WARNING] 同步出现问题，服务器可能过载");
 		}
 	}
 	
@@ -412,7 +412,7 @@ class PocketMinecraftServer{
 		$er["type"] = isset($errorConversion[$er["type"]]) ? $errorConversion[$er["type"]]:$er["type"];
 		$dump .= "Error: ".var_export($er, true)."\r\n\r\n";
 		if(stripos($er["file"], "plugin") !== false){
-			$dump .= "THIS ERROR WAS CAUSED BY A PLUGIN. REPORT IT TO THE PLUGIN DEVELOPER.\r\n";
+			$dump .= "这个服务器被你的扩展干挂了，去找扩展作者聊人生吧.\r\n";
 		}
 		
 		$dump .= "Code: \r\n";
@@ -457,7 +457,7 @@ class PocketMinecraftServer{
 		$dump .= "\r\n```";
 		$name = "Error_Dump_".date("D_M_j-H.i.s-T_Y");
 		logg($dump, $name, true, 0, true);
-		console("[SEVERE] Please submit the \"{$name}.log\" file to the Bug Reporting page. Give as much info as you can.", true, true, 0);
+		console("[SEVERE] 请把 \"{$name}.log\" 交给扩展作者，并和他交流一下。", true, true, 0);
 	}
 
 	public function tick(){
