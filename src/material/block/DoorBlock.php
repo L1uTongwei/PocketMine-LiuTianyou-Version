@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS["__DoorBlock"] = "defined";
+
 class DoorBlock extends TransparentBlock{
     /**
      * @param int $id

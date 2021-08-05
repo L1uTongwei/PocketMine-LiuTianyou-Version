@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['__Position'] = "defined";
+
 class Position extends Vector3{
 	public $level;
 

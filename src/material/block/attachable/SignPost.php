@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['__SignPost'] = "defined";
+
 class SignPostBlock extends TransparentBlock{
 	public function __construct($meta = 0){
 		parent::__construct(SIGN_POST, $meta, "Sign Post");

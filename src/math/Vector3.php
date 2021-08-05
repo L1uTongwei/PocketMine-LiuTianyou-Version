@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['__Vector3'] = "defined";
+
 class Vector3{
 	public $x, $y, $z;
 

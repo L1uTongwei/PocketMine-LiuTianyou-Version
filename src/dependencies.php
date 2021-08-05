@@ -18,11 +18,12 @@
  * 
  *
 */
+$GLOBALS['__dependencies'] = "defined";
 
 /***REM_START***/
-require_once("config.php");
-require_once("utils/TextFormat.php");
-require_once("functions.php");
+__require_once("/src/config.php");
+__require_once("/src/utils/TextFormat.php");
+__require_once("/src/functions.php");
 /***REM_END***/
 define("DATA_PATH", realpath(arg("data-path", FILE_PATH))."/");
 
@@ -92,9 +93,9 @@ if($errors > 0){
 
 $sha1sum = "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
 /***REM_START***/
-require_once("math/Vector3.php");
-require_once("world/Position.php");
-require_once("pmf/PMF.php");
+__require_once("/src/math/Vector3.php");
+__require_once("/src/world/Position.php");
+__require_once("/src/pmf/PMF.php");
 
 require_all(FILE_PATH . "src/");
 

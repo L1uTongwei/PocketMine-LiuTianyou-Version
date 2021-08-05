@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['ConsoleAPI'] = "defined";
+
 class ConsoleAPI{
 	private $loop, $server, $event, $help, $cmds, $alias;
 	function __construct(){

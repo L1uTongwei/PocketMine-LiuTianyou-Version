@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['TileAPI'] = "defined";
+
 class TileAPI{
 	private $server;
 	private $tiles;

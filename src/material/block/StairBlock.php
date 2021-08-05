@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['__StairBlock'] = "defined";
+
 class StairBlock extends TransparentBlock{
     /**
      * @param int $id

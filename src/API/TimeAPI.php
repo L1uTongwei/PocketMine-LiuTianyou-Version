@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['TimeAPI'] = "defined";
+
 class TimeAPI{
 	public static $phases = array(
 		"day" => 0,

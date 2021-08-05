@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['__TransparentBlock'] = "defined";
+
 class TransparentBlock extends GenericBlock{
     /**
      * @param int $id

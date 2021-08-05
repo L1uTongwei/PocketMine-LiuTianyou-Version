@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['ServerAPI'] = "defined";
+
 class ServerAPI{
 	public $restart = false;
 	private static $serverRequest = false;
@@ -421,7 +423,7 @@ class ServerAPI{
 				console("[ERROR] API ".$name." [".$class."] in ".$dir." 不存在", true, true, 0);
 				return false;
 			}
-			require_once($file);
+			__require_once($file);
 		}else{
 			$internal = true;
 		}

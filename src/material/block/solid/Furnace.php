@@ -20,7 +20,7 @@
 */
 
 /***REM_START***/
-require_once("BurningFurnace.php");
+__require_once("/src/material/block/solid/BurningFurnace.php");
 /***REM_END***/
 
 

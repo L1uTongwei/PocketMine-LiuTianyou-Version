@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['__Water'] = "defined";
+
 class WaterBlock extends LiquidBlock{
 	public function __construct($meta = 0){
 		parent::__construct(WATER, $meta, "Water");

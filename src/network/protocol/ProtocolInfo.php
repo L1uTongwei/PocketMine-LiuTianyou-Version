@@ -156,5 +156,5 @@ class ProtocolInfo{
 }
 
 /***REM_START***/
-require_once(FILE_PATH . "src/network/raknet/RakNetDataPacket.php");
+__require_once("/src/network/raknet/RakNetDataPacket.php");
 /***REM_END***/

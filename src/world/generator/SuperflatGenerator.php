@@ -20,7 +20,7 @@
 */
 
 /***REM_START***/
-require_once("LevelGenerator.php");
+__require_once("/src/world/generator/LevelGenerator.php");
 /***REM_END***/
 
 class SuperflatGenerator implements LevelGenerator{

@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['__AchievementAPI'] = "defined";
+
 class AchievementAPI{
 	public static $achievements = array(
 		"openInventory" => array(

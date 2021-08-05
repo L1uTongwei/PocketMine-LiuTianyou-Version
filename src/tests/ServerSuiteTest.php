@@ -14,9 +14,8 @@
 		
 		if(!class_exists("PocketMinecraftServer", false)){
 			define("NO_THREADS", true);
-			require_once(dirname(__FILE__)."/../dependencies.php");
-			require_once("functions.php");
-			require_once("dependencies.php");
+			__require_once("/src/dependencies.php");
+			__require_once("/src/functions.php");
 			console(FORMAT_GREEN . "[TEST] Starting tests");
 			testCase("dummy", dummy(), null);
 			$t = new ServerSuiteTest;

@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['__RakNetDataPacket'] = "defined";
+
 abstract class RakNetDataPacket extends stdClass{
 	private $offset = 0;
 	public $buffer = b"";

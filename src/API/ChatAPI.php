@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['ChatAPI'] = "defined";
+
 class ChatAPI{
 	private $server;
 	function __construct(){

@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['__BurningFurnace'] = "defined";
+
 class BurningFurnaceBlock extends SolidBlock{
 	public function __construct($meta = 0){
 		parent::__construct(BURNING_FURNACE, $meta, "Burning Furnace");

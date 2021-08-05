@@ -19,6 +19,7 @@
  *
 */
 
+$GLOBALS['__GenericBlock'] = 'defined';
 
 class GenericBlock extends Block{
     /**

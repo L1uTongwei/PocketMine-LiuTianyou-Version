@@ -238,11 +238,11 @@ abstract class Block extends Position{
 }
 
 /***REM_START***/
-require_once("block/GenericBlock.php");
-require_once("block/SolidBlock.php");
-require_once("block/TransparentBlock.php");
-require_once("block/FallableBlock.php");
-require_once("block/LiquidBlock.php");
-require_once("block/StairBlock.php");
-require_once("block/DoorBlock.php");
+__require_once("/src/material/block/GenericBlock.php");
+__require_once("/src/material/block/SolidBlock.php");
+__require_once("/src/material/block/TransparentBlock.php");
+__require_once("/src/material/block/FallableBlock.php");
+__require_once("/src/material/block/LiquidBlock.php");
+__require_once("/src/material/block/StairBlock.php");
+__require_once("/src/material/block/DoorBlock.php");
 /***REM_END***/

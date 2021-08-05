@@ -19,12 +19,23 @@
  *
 */
 
+//定义自己的__require_once以加快速度
+function __require_once($filename, $mode = false){
+    $macro = "__".basename($filename, ".php");
+    if(!isset($GLOBALS[$macro])){
+        if($mode == false) $filename = __DIR__ . $filename;
+        echo "Loaded header file $filename...\n";
+        flush();
+        require($filename);
+    }
+}
+
 
 /***REM_START***/
-require_once("./src/config.php");
+__require_once("/src/config.php");
 
-require_once("./src/functions.php");
-require_once("./src/dependencies.php");
+__require_once("/src/functions.php");
+__require_once("/src/dependencies.php");
 /***REM_END***/
 
 $server = new ServerAPI();

@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['BanAPI'] = "defined";
+
 class BanAPI{
 	private $server;
     /*

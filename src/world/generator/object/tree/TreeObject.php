@@ -19,6 +19,7 @@
  *
 */
 
+$GLOBALS['__TreeObject'] = "defined";
 
 class TreeObject{
 	public $overridable = array(

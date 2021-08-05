@@ -20,7 +20,7 @@
 */
 
 /***REM_START***/
-require_once("NoiseGenerator.php");
+__require_once("/src/world/generator/NoiseGenerator.php");
 /***REM_END***/
 
 class NoiseGeneratorOctaves extends NoiseGenerator{

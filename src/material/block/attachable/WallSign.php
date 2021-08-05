@@ -20,7 +20,7 @@
 */
 
 /***REM_START***/
-require_once("SignPost.php");
+__require_once("/src/material/block/attachable/SignPost.php");
 /***REM_END***/
 
 class WallSignBlock extends SignPostBlock{

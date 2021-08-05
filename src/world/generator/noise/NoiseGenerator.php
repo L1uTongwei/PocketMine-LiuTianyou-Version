@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['__NoiseGenerator'] = "defined";
+
 abstract class NoiseGenerator{
 	
 }

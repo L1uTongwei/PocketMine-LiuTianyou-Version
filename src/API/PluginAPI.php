@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['PluginAPI'] = "defined";
+
 class PluginAPI extends stdClass{
 	private $server;
 	private $plugins = array();

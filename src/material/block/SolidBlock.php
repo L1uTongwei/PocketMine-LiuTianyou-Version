@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['__SolidBlock'] = "defined";
+
 class SolidBlock extends GenericBlock{
     /**
      * @param int $id

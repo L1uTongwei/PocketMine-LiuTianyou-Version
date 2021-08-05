@@ -21,7 +21,7 @@
 
 
 /***REM_START***/
-require_once("Water.php");
+__require_once("/src/material/block/liquid/Water.php");
 /***REM_END***/
 
 class StillWaterBlock extends WaterBlock{

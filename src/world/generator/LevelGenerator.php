@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['__LevelGenerator'] = "defined";
+
 interface LevelGenerator{
 	public function __construct(array $options = array());
 	

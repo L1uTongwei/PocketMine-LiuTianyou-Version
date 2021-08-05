@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['BlockAPI'] = "defined";
+
 class BlockAPI{
 	private $server;
 	private $scheduledUpdates = array();

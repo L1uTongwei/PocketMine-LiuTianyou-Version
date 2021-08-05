@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['EntityAPI'] = "defined";
+
 class EntityAPI{
 	private $server;
 	private $entities;

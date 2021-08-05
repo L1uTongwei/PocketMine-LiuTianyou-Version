@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS["__FallableBlock"] = "defined";
+
 class FallableBlock extends SolidBlock{
     /**
      * @param int $id

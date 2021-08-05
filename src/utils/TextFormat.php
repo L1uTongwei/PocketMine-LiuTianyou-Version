@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['__TextFormat'] = "defined";
+
 define("FORMAT_BLACK", "§0");
 define("FORMAT_DARK_BLUE", "§1");
 define("FORMAT_DARK_GREEN", "§2");

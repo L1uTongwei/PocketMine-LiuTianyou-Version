@@ -19,6 +19,8 @@
  *
  */
 
+$GLOBALS['PlayerAPI'] = "defined";
+
 class PlayerAPI{
     private $server;
     function __construct(){

@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['LevelAPI'] = "defined";
+
 class LevelAPI{
 	private $server, $levels, $default;
 	public function __construct(){

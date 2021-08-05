@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS['__LiquidBlock'] = 'defined';
+
 class LiquidBlock extends TransparentBlock{
     /**
      * @param int $id

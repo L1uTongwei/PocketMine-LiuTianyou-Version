@@ -19,6 +19,8 @@
  *
 */
 
+$GLOBALS["__functions"] = "defined";
+
 if(!function_exists("cli_set_process_title")){
 	function cli_set_process_title($title){
 		if(ENABLE_ANSI === true){
@@ -87,7 +89,7 @@ function require_all($path, &$count = 0){
 	while(false !== ($file = $dir->read())){
 		if($file !== "." and $file !== ".."){
 			if(!is_dir($path.$file) and strtolower(substr($file, -3)) === "php"){
-				require_once($path.$file);
+				__require_once($path.$file, true);
 				++$count;
 			}elseif(is_dir($path.$file)){
 				$dirs[] = $path.$file."/";
@@ -214,7 +216,8 @@ function console($message, $EOL = true, $log = true, $level = 1){
 		}else{
 			$message = $replaced;
 		}
-		echo $message;
+		printf($message);
+		flush();
 	}
 }
 
