@@ -89,6 +89,12 @@ threads文件夹有threads_VC2.dll php_threads.dll
 
 ### 本次提交的更新日志
 
+更新了proxy模式，默认为关闭。
+
+proxy模式主要应用与使用内网穿透等代理的情况，这个时候，UDP协议无法获取用户的真实IP，所以需要开启。
+
+开启后，将关闭BanIP，因为毫无意义。
+
 ### 有关版本号的约定
 
 版本号固定为Alpha_1.3.12(Hack Version Alpha_1.x.x)，适用于MCPE Alpha_0.8.1（也许0.9.x也能用吧）

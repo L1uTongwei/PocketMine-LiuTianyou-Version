@@ -137,6 +137,7 @@ class ServerAPI{
 			"send-usage" => true,
 			"auto-save" => true,
 			"safe_mode" => true,
+			"proxy" => false,
 		));
 		
 		$this->parseProperties();
@@ -263,6 +264,7 @@ class ServerAPI{
 			$this->server->difficulty = $this->getProperty("difficulty");
 			$this->server->whitelist = $this->getProperty("white-list");
 			$this->server->safeMode = $this->getProperty("safe_mode");
+			$this->server->proxy = $this->getProperty("proxy");
 		}
 	}
 

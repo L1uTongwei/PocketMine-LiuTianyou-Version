@@ -42,17 +42,19 @@ class BanAPI{
 		$this->bannedIPs = new Config(DATA_PATH."banned-ips.txt", CONFIG_LIST);//Open Banned IPs list file
 		$this->banned = new Config(DATA_PATH."banned.txt", CONFIG_LIST);//Open Banned Usernames list file
 		$this->ops = new Config(DATA_PATH."ops.txt", CONFIG_LIST);//Open list of OPs
-		$this->server->api->console->register("banip", "<add|remove|list|reload> [IP|玩家名称]", array($this, "commandHandler"));
+		if($this->server->proxy == false){ //代理模式
+			$this->server->api->console->register("banip", "<add|remove|list|reload> [IP|玩家名称]", array($this, "commandHandler"));
+			$this->server->api->console->alias("ban-ip", "banip add");
+			$this->server->api->console->alias("pardon-ip", "banip remove");
+		}
 		$this->server->api->console->register("ban", "<add|remove|list|reload> [玩家名称]", array($this, "commandHandler"));
 		$this->server->api->console->register("kick", "<玩家名称> [理由……]", array($this, "commandHandler"));
 		$this->server->api->console->register("whitelist", "<on|off|list|add|remove|reload> [玩家名称]", array($this, "commandHandler"));
 		$this->server->api->console->register("op", "<玩家名称>", array($this, "commandHandler"));
 		$this->server->api->console->register("deop", "<玩家名称>", array($this, "commandHandler"));
 		$this->server->api->console->register("sudo", "<玩家名称>", array($this, "commandHandler"));
-		$this->server->api->console->alias("ban-ip", "banip add");
 		$this->server->api->console->alias("banlist", "ban list");
 		$this->server->api->console->alias("pardon", "ban remove");
-		$this->server->api->console->alias("pardon-ip", "banip remove");
 		$this->server->addHandler("console.command", array($this, "permissionsCheck"), 1);//Event handler when commands are issued. Used to check permissions of commands that go through the server.
 		$this->server->addHandler("player.block.break", array($this, "permissionsCheck"), 1);//Event handler for blocks
 		$this->server->addHandler("player.block.place", array($this, "permissionsCheck"), 1);//Event handler for blocks
