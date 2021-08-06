@@ -30,3 +30,4 @@ class MelonBlock extends TransparentBlock{
 		);
 	}
 }
+?>

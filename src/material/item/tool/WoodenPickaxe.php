@@ -25,3 +25,5 @@ class WoodenPickaxeItem extends Item{
 	}
 
 }
+
+?>

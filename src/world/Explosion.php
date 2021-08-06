@@ -124,3 +124,5 @@ class Explosion{
 
 	}
 }
+
+?>

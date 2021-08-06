@@ -145,7 +145,7 @@ class PluginAPI extends stdClass{
 	}
 	
 	public function pluginsPath(){
-		$path = join(DIRECTORY_SEPARATOR, array(DATA_PATH."plugins", ""));
+		$path = join(DIRECTORY_SEPARATOR, array("./plugins", ""));
 		@mkdir($path);
 		return $path;
 	}
@@ -237,3 +237,5 @@ class DummyPlugin implements Plugin{
 	public function __destruct(){
 	}
 }
+
+?>

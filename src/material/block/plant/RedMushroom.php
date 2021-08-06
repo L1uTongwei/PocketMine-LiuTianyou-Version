@@ -45,3 +45,4 @@ class RedMushroomBlock extends FlowableBlock{
 		return false;
 	}	
 }
+?>

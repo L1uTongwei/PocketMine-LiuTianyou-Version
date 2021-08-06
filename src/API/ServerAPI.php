@@ -96,9 +96,9 @@ class ServerAPI{
 	}
 	
 	public function load(){
-		@mkdir(DATA_PATH."players/", 0755);
-		@mkdir(DATA_PATH."worlds/", 0755);
-		@mkdir(DATA_PATH."plugins/", 0755);
+		@mkdir("./players/", 0755);
+		@mkdir("./worlds/", 0755);
+		@mkdir("./plugins/", 0755);
 		
 		//Init all the events
 		foreach(get_declared_classes() as $class){
@@ -111,7 +111,7 @@ class ServerAPI{
 		console("[INFO] 正在启动 Minecraft PE服务器 版本 ".FORMAT_AQUA.CURRENT_MINECRAFT_VERSION);
 		
 		console("[INFO] 加载服务器配置文件中...");
-		$this->config = new Config(DATA_PATH . "server.properties", CONFIG_PROPERTIES, array(
+		$this->config = new Config("./server.properties", CONFIG_PROPERTIES, array(
 			"server-name" => "Minecraft: PE Server",
 			"description" => "Server made using PocketMine-MP",
 			"motd" => "Welcome @player to this server!",
@@ -432,3 +432,5 @@ class ServerAPI{
 		console("[".($internal === true ? "INTERNAL":"DEBUG")."] API \x1b[36m".$name."\x1b[0m [\x1b[30;1m".$class."\x1b[0m] loaded", true, true, ($internal === true ? 3:2));
 	}
 }
+
+?>

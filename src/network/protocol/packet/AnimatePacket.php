@@ -39,3 +39,4 @@ class AnimatePacket extends RakNetDataPacket{
 	}
 
 }
+?>

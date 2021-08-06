@@ -27,3 +27,4 @@
 abstract class PluginEvent extends BaseEvent{
 
 }
+?>

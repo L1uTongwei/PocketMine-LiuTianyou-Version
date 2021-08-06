@@ -30,3 +30,4 @@ class BirchWoodStairsBlock extends StairBlock{
 		);
 	}
 }
+?>

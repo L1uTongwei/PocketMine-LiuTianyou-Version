@@ -56,3 +56,4 @@ class CoalOreBlock extends SolidBlock{
 	}
 	
 }
+?>

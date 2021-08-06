@@ -60,3 +60,4 @@ class LadderBlock extends TransparentBlock{
 		);
 	}		
 }
+?>

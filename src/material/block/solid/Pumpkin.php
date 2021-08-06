@@ -26,3 +26,4 @@ class PumpkinBlock extends SolidBlock{
 	}
 	
 }
+?>

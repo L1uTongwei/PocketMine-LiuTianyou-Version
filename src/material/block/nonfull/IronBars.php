@@ -27,3 +27,4 @@ class IronBarsBlock extends TransparentBlock{
 	}
 	
 }
+?>

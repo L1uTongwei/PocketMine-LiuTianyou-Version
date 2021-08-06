@@ -51,3 +51,4 @@ class IronOreBlock extends SolidBlock{
 		}
 	}
 }
+?>

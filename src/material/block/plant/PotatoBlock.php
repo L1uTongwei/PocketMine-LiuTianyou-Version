@@ -79,3 +79,4 @@ class PotatoBlock extends FlowableBlock{
 		return $drops;
 	}
 }
+?>

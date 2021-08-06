@@ -25,3 +25,4 @@ class Packet extends stdClass{
 	public $buffer;
 
 }
+?>

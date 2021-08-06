@@ -25,3 +25,4 @@ class GlowingObsidianBlock extends SolidBlock{
 	}
 	
 }
+?>

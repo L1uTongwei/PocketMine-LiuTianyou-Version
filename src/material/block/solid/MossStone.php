@@ -55,3 +55,4 @@ class MossStoneBlock extends SolidBlock{
 		}
 	}
 }
+?>

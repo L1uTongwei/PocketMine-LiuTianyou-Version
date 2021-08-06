@@ -27,3 +27,4 @@ class GlassPaneBlock extends TransparentBlock{
 	}
 	
 }
+?>

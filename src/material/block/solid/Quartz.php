@@ -61,3 +61,4 @@ class QuartzBlock extends SolidBlock{
 		}
 	}
 }
+?>

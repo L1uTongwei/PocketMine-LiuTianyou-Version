@@ -31,3 +31,4 @@ class GlowstoneBlock extends TransparentBlock{
 		);
 	}
 }
+?>

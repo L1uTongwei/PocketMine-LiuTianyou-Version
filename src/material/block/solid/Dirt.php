@@ -37,3 +37,4 @@ class DirtBlock extends SolidBlock{
 		return false;
 	}
 }
+?>

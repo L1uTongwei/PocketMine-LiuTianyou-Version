@@ -31,3 +31,4 @@ class ClayBlock extends SolidBlock{
 		);
 	}
 }
+?>

@@ -30,3 +30,4 @@ class OreType{
 		$this->minHeight = (int) $minHeight;
 	}
 }
+?>

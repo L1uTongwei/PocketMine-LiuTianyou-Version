@@ -25,7 +25,6 @@ __require_once("/src/config.php");
 __require_once("/src/utils/TextFormat.php");
 __require_once("/src/functions.php");
 /***REM_END***/
-define("DATA_PATH", realpath(arg("data-path", FILE_PATH))."/");
 
 if(arg("enable-ansi", strpos(strtoupper(php_uname("s")), "WIN") === 0 ? false:true) === true and arg("disable-ansi", false) !== true){
 	define("ENABLE_ANSI", true);
@@ -97,7 +96,8 @@ __require_once("/src/math/Vector3.php");
 __require_once("/src/world/Position.php");
 __require_once("/src/pmf/PMF.php");
 
-require_all(FILE_PATH . "src/");
+if(!isset($GLOBALS['compressed']))
+	require_all(FILE_PATH . "src/");
 
 $inc = get_included_files();
 $inc[] = array_shift($inc);
@@ -112,7 +112,8 @@ foreach($inc as $s){
 define("SOURCE_SHA1SUM", bin2hex($sha1sum));
 
 /***REM_START***/
-if(!file_exists(DATA_PATH."server.properties") and arg("no-wizard", false) != true){
+if(!file_exists("./server.properties") and arg("no-wizard", false) != true){
 	$installer = new Installer();
 }
 /***REM_END***/
+?>

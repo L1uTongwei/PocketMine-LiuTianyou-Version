@@ -52,3 +52,4 @@ class FireBlock extends FlowableBlock{
 	}
 	
 }
+?>

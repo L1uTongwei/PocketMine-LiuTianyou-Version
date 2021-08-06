@@ -103,3 +103,4 @@ class GenericBlock extends Block{
 		return $this->isActivable;
 	}
 }
+?>

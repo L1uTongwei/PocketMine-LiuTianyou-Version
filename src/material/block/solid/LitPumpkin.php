@@ -37,3 +37,4 @@ class LitPumpkinBlock extends SolidBlock{
         return true;
     }
 }
+?>

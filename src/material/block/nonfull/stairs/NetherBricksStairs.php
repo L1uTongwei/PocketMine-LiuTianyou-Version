@@ -25,3 +25,4 @@ class NetherBricksStairsBlock extends StairBlock{
 	}
 	
 }
+?>

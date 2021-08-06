@@ -59,3 +59,4 @@ function UPnP_RemovePortForward($port){
 	}
 	return true;
 }
+?>

@@ -33,3 +33,4 @@ class SolidBlock extends GenericBlock{
 		$this->isFullBlock = true;
 	}
 }
+?>

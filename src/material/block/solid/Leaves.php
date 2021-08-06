@@ -149,3 +149,4 @@ class LeavesBlock extends TransparentBlock{
 		return $drops;
 	}
 }
+?>

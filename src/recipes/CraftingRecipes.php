@@ -313,3 +313,5 @@ class CraftingRecipes{
 	}
 
 }
+
+?>

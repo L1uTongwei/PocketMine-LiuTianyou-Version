@@ -25,3 +25,4 @@ class BeetrootSeedsItem extends Item{
 		parent::__construct(BEETROOT_SEEDS, 0, $count, "Beetroot Seeds");
 	}
 }
+?>

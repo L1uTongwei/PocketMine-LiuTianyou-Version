@@ -189,3 +189,4 @@ class SuperflatGenerator implements LevelGenerator{
 		return new Vector3(128, $this->floorLevel, 128);
 	}
 }
+?>

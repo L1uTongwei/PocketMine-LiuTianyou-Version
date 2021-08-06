@@ -47,3 +47,4 @@ class HayBaleBlock extends SolidBlock{
 	}
 	
 }
+?>

@@ -58,3 +58,4 @@ class IceBlock extends TransparentBlock{
 		return array();
 	}
 }
+?>

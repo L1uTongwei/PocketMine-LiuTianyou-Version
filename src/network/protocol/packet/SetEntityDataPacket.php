@@ -38,3 +38,4 @@ class SetEntityDataPacket extends RakNetDataPacket{
 	}
 
 }
+?>

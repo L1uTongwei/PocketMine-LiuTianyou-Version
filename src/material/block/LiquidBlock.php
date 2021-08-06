@@ -36,3 +36,4 @@ class LiquidBlock extends TransparentBlock{
 		$this->isFullBlock = true;
 	}
 }
+?>

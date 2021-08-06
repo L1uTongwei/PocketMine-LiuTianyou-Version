@@ -78,3 +78,4 @@ class CactusBlock extends TransparentBlock{
 		);
 	}
 }
+?>

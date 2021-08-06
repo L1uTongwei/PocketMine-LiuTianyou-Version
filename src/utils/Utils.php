@@ -27,6 +27,12 @@ class Utils{
 	public static $online = true;
 	public static $ip = false;
 	
+	function __construct(){
+		if(Utils::isOnline() === false){
+			Utils::$online = false;
+		}
+	}
+
 	public static function isOnline(){
 		return ((@fsockopen("8.8.8.8", 80, $e = null, $n = null, 2) !== false or @fsockopen("www.linux.org", 80, $e = null, $n = null, 2) !== false or @fsockopen("www.php.net", 80, $e = null, $n = null, 2) !== false) ? true:false);
 	}
@@ -626,6 +632,4 @@ class Utils{
 
 }
 
-if(Utils::isOnline() === false){
-	Utils::$online = false;
-}
+?>

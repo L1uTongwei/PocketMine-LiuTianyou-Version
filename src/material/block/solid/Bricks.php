@@ -55,3 +55,4 @@ class BricksBlock extends SolidBlock{
 		}
 	}
 }
+?>

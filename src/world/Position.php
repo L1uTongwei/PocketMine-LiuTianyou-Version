@@ -51,3 +51,4 @@ class Position extends Vector3{
 	}
 
 }
+?>

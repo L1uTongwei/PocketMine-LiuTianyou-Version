@@ -93,3 +93,4 @@ class TemporalGenerator implements LevelGenerator{
 		return new Vector3(TemporalGenerator::$levels[$this->index][1], TemporalGenerator::$levels[$this->index][2], TemporalGenerator::$levels[$this->index][3]);
 	}
 }
+?>

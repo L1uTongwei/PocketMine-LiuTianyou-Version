@@ -34,3 +34,4 @@ interface LevelGenerator{
 	
 	public function getSpawn();
 }
+?>

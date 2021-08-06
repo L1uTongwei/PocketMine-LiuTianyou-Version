@@ -26,3 +26,4 @@ class CakeItem extends Item{
 		parent::__construct(CAKE, 0, $count, "Cake");
 	}
 }
+?>

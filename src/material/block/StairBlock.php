@@ -80,3 +80,4 @@ class StairBlock extends TransparentBlock{
 		}
 	}
 }
+?>

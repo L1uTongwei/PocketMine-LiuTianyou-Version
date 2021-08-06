@@ -49,3 +49,4 @@ class DiamondOreBlock extends SolidBlock{
 		}
 	}
 }
+?>

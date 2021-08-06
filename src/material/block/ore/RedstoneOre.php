@@ -44,3 +44,4 @@ class RedstoneOreBlock extends SolidBlock{
 		}
 	}
 }
+?>

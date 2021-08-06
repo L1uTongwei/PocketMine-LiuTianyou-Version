@@ -46,3 +46,4 @@ class TNTBlock extends SolidBlock{
 		return false;
 	}
 }
+?>

@@ -55,3 +55,4 @@ class CoalBlock extends SolidBlock{
 		}
 	}
 }
+?>

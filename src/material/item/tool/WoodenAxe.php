@@ -25,3 +25,5 @@ class WoodenAxeItem extends Item{
 	}
 
 }
+
+?>

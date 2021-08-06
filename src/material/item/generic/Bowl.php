@@ -25,3 +25,4 @@ class BowlItem extends Item{
 	}
 
 }
+?>

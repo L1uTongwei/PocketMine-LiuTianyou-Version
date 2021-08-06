@@ -49,3 +49,4 @@ class PondPopulator extends Populator{
 		$this->lavaSurfaceOdd = $lavaSurfaceOdd;
 	}
 }
+?>

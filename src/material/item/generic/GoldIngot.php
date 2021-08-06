@@ -25,3 +25,4 @@ class GoldIngotItem extends Item{
 	}
 
 }
+?>

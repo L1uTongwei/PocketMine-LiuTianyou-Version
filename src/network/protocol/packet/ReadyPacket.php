@@ -35,3 +35,4 @@ class ReadyPacket extends RakNetDataPacket{
 	}
 
 }
+?>

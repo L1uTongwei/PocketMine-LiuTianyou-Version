@@ -133,3 +133,4 @@ class Async extends Thread{
 		return $this->result;
 	}
 }
+?>

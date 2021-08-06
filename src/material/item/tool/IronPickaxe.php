@@ -25,3 +25,4 @@ class IronPickaxeItem extends Item{
 	}
 
 }
+?>

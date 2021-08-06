@@ -25,3 +25,4 @@ class FeatherItem extends Item{
 	}
 
 }
+?>

@@ -38,3 +38,4 @@ class TransparentBlock extends GenericBlock{
 		$this->isSolid = true;
 	}
 }
+?>

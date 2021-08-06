@@ -59,3 +59,4 @@ class DoubleWoodSlabBlock extends SolidBlock{
 	}
 	
 }
+?>

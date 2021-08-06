@@ -50,3 +50,4 @@ class WoodStairsBlock extends StairBlock{
 		);
 	}
 }
+?>

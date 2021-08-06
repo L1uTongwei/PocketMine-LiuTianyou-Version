@@ -26,3 +26,4 @@ class MushroomStewItem extends Item{
 	}
 
 }
+?>

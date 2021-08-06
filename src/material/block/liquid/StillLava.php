@@ -26,3 +26,4 @@ class StillLavaBlock extends LiquidBlock{
 	}
 	
 }
+?>

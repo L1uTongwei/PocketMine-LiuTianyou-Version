@@ -26,3 +26,4 @@ class SnowBlock extends SolidBlock{
 	}
 	
 }
+?>

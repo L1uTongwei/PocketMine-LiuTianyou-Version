@@ -66,3 +66,4 @@ class NoiseGeneratorOctaves extends NoiseGenerator{
 		return $floats;
 	}
 }
+?>

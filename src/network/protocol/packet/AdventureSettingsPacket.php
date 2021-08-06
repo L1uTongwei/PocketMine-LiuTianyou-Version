@@ -36,3 +36,4 @@ class AdventureSettingsPacket extends RakNetDataPacket{
 	}
 
 }
+?>

@@ -48,3 +48,4 @@ class SpawnEggItem extends Item{
 		return false;
 	}
 }
+?>

@@ -55,3 +55,4 @@ class NetherBricksBlock extends SolidBlock{
 		}
 	}
 }
+?>

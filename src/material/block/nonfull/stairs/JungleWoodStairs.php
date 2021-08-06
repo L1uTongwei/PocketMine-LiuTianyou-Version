@@ -30,3 +30,4 @@ class JungleWoodStairsBlock extends StairBlock{
 		);
 	}
 }
+?>

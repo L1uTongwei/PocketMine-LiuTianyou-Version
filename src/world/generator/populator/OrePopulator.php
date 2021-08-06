@@ -39,3 +39,4 @@ class OrePopulator extends Populator{
 		$this->oreTypes = $types;
 	}
 }
+?>

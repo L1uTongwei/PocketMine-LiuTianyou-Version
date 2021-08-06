@@ -26,3 +26,4 @@ class WoodenDoorItem extends Item{
 		$this->maxStackSize = 1;
 	}
 }
+?>

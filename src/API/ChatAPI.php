@@ -143,3 +143,5 @@ class ChatAPI{
 		$this->server->handle("server.chat", new Container($message, $whitelist, $blacklist));
 	}
 }
+
+?>

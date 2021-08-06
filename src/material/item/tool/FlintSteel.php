@@ -39,3 +39,4 @@ class FlintSteelItem extends Item{
 		return false;
 	}
 }
+?>

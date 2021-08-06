@@ -80,3 +80,4 @@ class WheatBlock extends FlowableBlock{
 		return $drops;
 	}
 }
+?>

@@ -32,3 +32,4 @@ class RakNetPacket extends Packet{
 	
 	public function __destruct(){}
 }
+?>

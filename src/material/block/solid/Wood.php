@@ -58,3 +58,4 @@ class WoodBlock extends SolidBlock{
 		);
 	}
 }
+?>

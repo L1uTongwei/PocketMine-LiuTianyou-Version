@@ -25,3 +25,4 @@ class SugarcaneItem extends Item{
 		parent::__construct(SUGARCANE, 0, $count, "Sugar Cane");
 	}
 }
+?>

@@ -246,3 +246,5 @@ __require_once("/src/material/block/LiquidBlock.php");
 __require_once("/src/material/block/StairBlock.php");
 __require_once("/src/material/block/DoorBlock.php");
 /***REM_END***/
+
+?>

@@ -34,3 +34,4 @@ class BedrockBlock extends SolidBlock{
 	}
 	
 }
+?>

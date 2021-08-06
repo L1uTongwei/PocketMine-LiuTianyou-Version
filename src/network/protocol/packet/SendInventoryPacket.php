@@ -59,3 +59,4 @@ class SendInventoryPacket extends RakNetDataPacket{
 	}
 
 }
+?>

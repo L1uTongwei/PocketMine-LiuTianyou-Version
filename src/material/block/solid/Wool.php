@@ -45,3 +45,4 @@ class WoolBlock extends SolidBlock{
 	}
 	
 }
+?>

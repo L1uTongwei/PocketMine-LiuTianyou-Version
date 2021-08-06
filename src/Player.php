@@ -19,18 +19,6 @@
  *
 */
 
-class passwordDb extends SQLite3{
-	function __construct(){
-		$this->open("../password.db");
-		$this->exec("
-		CREATE TABLE IF NOT EXISTS users
-		( username varchar(50) primary key,
-		  password varchar(50),
-		  salt varchar(50) )
-		");
-	}
-}
-
 class Player{
 	private $server;
 	private $recoveryQueue = array();
@@ -2450,3 +2438,5 @@ class Player{
 	}
 
 }
+
+?>

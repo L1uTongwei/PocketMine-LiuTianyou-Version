@@ -36,3 +36,4 @@ class PingPacket extends RakNetDataPacket{
 	}
 
 }
+?>

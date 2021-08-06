@@ -64,3 +64,4 @@ class Java_String{
 		return $h;
 	}
 }
+?>

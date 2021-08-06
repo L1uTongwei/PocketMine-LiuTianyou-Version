@@ -36,3 +36,4 @@ class HurtArmorPacket extends RakNetDataPacket{
 	}
 
 }
+?>

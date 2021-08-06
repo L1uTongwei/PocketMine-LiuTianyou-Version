@@ -26,3 +26,4 @@ class IronDoorItem extends Item{
 		$this->maxStackSize = 1;
 	}
 }
+?>

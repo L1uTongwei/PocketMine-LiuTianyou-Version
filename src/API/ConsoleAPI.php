@@ -330,3 +330,5 @@ class ConsoleLoop extends Thread{
 		exit(0);
 	}
 }
+
+?>

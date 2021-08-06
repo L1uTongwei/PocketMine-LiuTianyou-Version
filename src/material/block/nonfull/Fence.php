@@ -27,3 +27,4 @@ class FenceBlock extends TransparentBlock{
 	}
 	
 }
+?>

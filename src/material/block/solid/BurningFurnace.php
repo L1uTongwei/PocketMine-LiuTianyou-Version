@@ -107,3 +107,4 @@ class BurningFurnaceBlock extends SolidBlock{
 		return $drops;
 	}
 }
+?>

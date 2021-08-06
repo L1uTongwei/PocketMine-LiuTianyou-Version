@@ -171,3 +171,4 @@ abstract class RakNetDataPacket extends stdClass{
 		return !isset($this->buffer{$this->offset});
 	}
 }
+?>

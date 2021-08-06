@@ -39,3 +39,4 @@ class MessagePacket extends RakNetDataPacket{
 	}
 
 }
+?>

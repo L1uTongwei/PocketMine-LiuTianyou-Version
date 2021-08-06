@@ -476,3 +476,5 @@ function do_bc_op($bc_op, array $numbers) {
 function get_random_32bit_int() {
   return rand(0, 0xffff) | (rand(0, 0xffff) << 16);
 }
+
+?>

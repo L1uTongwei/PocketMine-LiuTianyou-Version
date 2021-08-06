@@ -34,3 +34,4 @@ class PacketReceiveEvent extends ServerEvent implements CancellableEvent{
 		return $this->packet;
 	}
 }
+?>

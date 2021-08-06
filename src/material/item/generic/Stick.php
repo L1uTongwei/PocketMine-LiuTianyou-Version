@@ -25,3 +25,4 @@ class StickItem extends Item{
 	}
 
 }
+?>

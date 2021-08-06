@@ -50,3 +50,4 @@ abstract class EventPriority{
 	const MONITOR = 0;
 	
 }
+?>

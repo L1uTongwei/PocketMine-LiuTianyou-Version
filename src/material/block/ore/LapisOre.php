@@ -52,3 +52,4 @@ class LapisOreBlock extends SolidBlock{
 	}
 	
 }
+?>

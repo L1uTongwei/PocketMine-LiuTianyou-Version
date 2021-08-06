@@ -25,3 +25,5 @@ class WoodenShovelItem extends Item{
 	}
 
 }
+
+?>

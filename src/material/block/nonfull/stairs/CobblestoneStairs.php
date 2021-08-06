@@ -25,3 +25,4 @@ class CobblestoneStairsBlock extends StairBlock{
 	}
 	
 }
+?>

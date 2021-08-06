@@ -26,3 +26,4 @@ class SignItem extends Item{
 		parent::__construct(SIGN, 0, $count, "Sign");
 	}
 }
+?>

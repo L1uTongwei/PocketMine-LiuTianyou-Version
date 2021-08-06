@@ -30,3 +30,4 @@ class CobwebBlock extends FlowableBlock{
 		return array();
 	}	
 }
+?>

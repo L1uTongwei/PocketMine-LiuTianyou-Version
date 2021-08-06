@@ -158,3 +158,4 @@ class ProtocolInfo{
 /***REM_START***/
 __require_once("/src/network/raknet/RakNetDataPacket.php");
 /***REM_END***/
+?>

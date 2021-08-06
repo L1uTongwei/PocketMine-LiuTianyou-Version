@@ -25,3 +25,5 @@ class WoodenSwordItem extends Item{
 	}
 
 }
+
+?>

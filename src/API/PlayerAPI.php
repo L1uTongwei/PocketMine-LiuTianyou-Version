@@ -481,12 +481,12 @@ class PlayerAPI{
             "achievements" => array(),
         );
 
-        if(!file_exists(DATA_PATH."players/".$iname.".yml")){
+        if(!file_exists("./players/".$iname.".yml")){
             console("[NOTICE] 找不到 \"".$iname."\"的玩家数据，正在创建新的配置文件。");
-            $data = new Config(DATA_PATH."players/".$iname.".yml", CONFIG_YAML, $default);
+            $data = new Config("./players/".$iname.".yml", CONFIG_YAML, $default);
             $data->save();
         }else{
-            $data = new Config(DATA_PATH."players/".$iname.".yml", CONFIG_YAML, $default);
+            $data = new Config("./players/".$iname.".yml", CONFIG_YAML, $default);
         }
 
         if(($data->get("gamemode") & 0x01) === 1){
@@ -501,3 +501,5 @@ class PlayerAPI{
         $data->save();
     }
 }
+
+?>

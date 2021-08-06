@@ -48,3 +48,4 @@ class GrassBlock extends SolidBlock{
 		return false;
 	}
 }
+?>

@@ -32,3 +32,4 @@ class WoodDoorBlock extends DoorBlock{
 		);
 	}
 }
+?>

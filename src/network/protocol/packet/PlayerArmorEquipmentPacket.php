@@ -45,3 +45,4 @@ class PlayerArmorEquipmentPacket extends RakNetDataPacket{
 	}
 
 }
+?>

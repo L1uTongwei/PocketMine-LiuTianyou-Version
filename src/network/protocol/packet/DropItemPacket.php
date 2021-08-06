@@ -39,3 +39,4 @@ class DropItemPacket extends RakNetDataPacket{
 	}
 
 }
+?>

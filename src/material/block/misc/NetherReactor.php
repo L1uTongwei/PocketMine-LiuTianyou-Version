@@ -26,3 +26,4 @@ class NetherReactorBlock extends SolidBlock{
 	}
 	
 }
+?>

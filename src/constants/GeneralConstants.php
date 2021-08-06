@@ -77,3 +77,4 @@ define("TILE_CHEST", "Chest");
 	define("CHEST_SLOTS", 27);
 define("TILE_FURNACE", "Furnace");
 	define("FURNACE_SLOTS", 3);
+?>

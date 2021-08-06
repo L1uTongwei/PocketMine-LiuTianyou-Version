@@ -49,3 +49,4 @@ class GoldOreBlock extends SolidBlock{
 		}
 	}
 }
+?>

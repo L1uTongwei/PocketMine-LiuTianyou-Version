@@ -48,3 +48,4 @@ class StartGamePacket extends RakNetDataPacket{
 	}
 
 }
+?>

@@ -25,3 +25,4 @@ class PotatoItem extends Item{
 		parent::__construct(POTATO, 0, $count, "Potato");
 	}
 }
+?>

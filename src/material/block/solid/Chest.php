@@ -124,3 +124,4 @@ class ChestBlock extends TransparentBlock{
 		return $drops;
 	}
 }
+?>

@@ -26,3 +26,4 @@ class BedItem extends Item{
 		$this->maxStackSize = 1;
 	}
 }
+?>

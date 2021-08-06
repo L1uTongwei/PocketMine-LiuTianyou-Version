@@ -40,10 +40,10 @@ class BanAPI{
 	}
 	
 	public function init(){
-		$this->whitelist = new Config(DATA_PATH."white-list.txt", CONFIG_LIST);//Open whitelist list file
-		$this->bannedIPs = new Config(DATA_PATH."banned-ips.txt", CONFIG_LIST);//Open Banned IPs list file
-		$this->banned = new Config(DATA_PATH."banned.txt", CONFIG_LIST);//Open Banned Usernames list file
-		$this->ops = new Config(DATA_PATH."ops.txt", CONFIG_LIST);//Open list of OPs
+		$this->whitelist = new Config("./white-list.txt", CONFIG_LIST);//Open whitelist list file
+		$this->bannedIPs = new Config("./banned-ips.txt", CONFIG_LIST);//Open Banned IPs list file
+		$this->banned = new Config("./banned.txt", CONFIG_LIST);//Open Banned Usernames list file
+		$this->ops = new Config("./ops.txt", CONFIG_LIST);//Open list of OPs
 		if($this->server->proxy == false){ //代理模式
 			$this->server->api->console->register("banip", "<add|remove|list|reload> [IP|玩家名称]", array($this, "commandHandler"));
 			$this->server->api->console->alias("ban-ip", "banip add");
@@ -221,7 +221,7 @@ class BanAPI{
 						$output .= "玩家 \"$user\" 已添加到白名单。\n";
 						break;
 					case "reload":
-						$this->whitelist = new Config(DATA_PATH."white-list.txt", CONFIG_LIST);
+						$this->whitelist = new Config("./white-list.txt", CONFIG_LIST);
 						break;
 					case "list":
 						$output .= "白名单： ".implode(", ", $this->whitelist->getAll(true))."\n";
@@ -266,7 +266,7 @@ class BanAPI{
 						$output .= "IP \"$ip\" 加入了封禁名单。\n";
 						break;
 					case "reload":
-						$this->bannedIPs = new Config(DATA_PATH."banned-ips.txt", CONFIG_LIST);
+						$this->bannedIPs = new Config("./banned-ips.txt", CONFIG_LIST);
 						break;
 					case "list":
 						$output .= "IP封禁名单： ".implode(", ", $this->bannedIPs->getAll(true))."\n";
@@ -304,7 +304,7 @@ class BanAPI{
 						$output .= "玩家 \"$user\" 被加入到封禁名单中。\n";
 						break;
 					case "reload":
-						$this->banned = new Config(DATA_PATH."banned.txt", CONFIG_LIST);
+						$this->banned = new Config("./banned.txt", CONFIG_LIST);
 						break;
 					case "list":
 						$output .= "封禁名单： ".implode(", ", $this->banned->getAll(true))."\n";
@@ -408,3 +408,5 @@ class BanAPI{
 		return false;	
 	}
 }
+
+?>

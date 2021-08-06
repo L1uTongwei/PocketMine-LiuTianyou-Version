@@ -25,3 +25,4 @@ class MelonSeedsItem extends Item{
 		parent::__construct(MELON_SEEDS, 0, $count, "Melon Seeds");
 	}
 }
+?>

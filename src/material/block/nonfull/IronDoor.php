@@ -56,3 +56,4 @@ class IronDoorBlock extends DoorBlock{
 		}
 	}
 }
+?>

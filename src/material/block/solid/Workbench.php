@@ -37,3 +37,4 @@ class WorkbenchBlock extends SolidBlock{
 		);
 	}
 }
+?>

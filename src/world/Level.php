@@ -534,3 +534,5 @@ class Level{
 		return $this->server->api->block->scheduleBlockUpdate($pos, $delay, $type);
 	}
 }
+
+?>

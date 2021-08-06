@@ -32,3 +32,4 @@ class FlowableBlock extends TransparentBlock{
 		$this->isSolid = false;
 	}
 }
+?>

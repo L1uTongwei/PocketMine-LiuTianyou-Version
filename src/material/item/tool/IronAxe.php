@@ -25,3 +25,4 @@ class IronAxeItem extends Item{
 	}
 
 }
+?>

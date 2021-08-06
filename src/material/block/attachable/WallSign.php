@@ -32,3 +32,4 @@ class WallSignBlock extends SignPostBlock{
 		return false;
 	}
 }
+?>

@@ -140,3 +140,5 @@ class LavaBlock extends LiquidBlock{
 	}	
 	
 }
+
+?>

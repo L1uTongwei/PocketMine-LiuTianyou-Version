@@ -153,3 +153,4 @@ class DoorBlock extends TransparentBlock{
 		return true;
 	}
 }
+?>

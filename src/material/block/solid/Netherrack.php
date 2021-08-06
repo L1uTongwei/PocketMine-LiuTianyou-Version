@@ -55,3 +55,4 @@ class NetherrackBlock extends SolidBlock{
 		}
 	}
 }
+?>

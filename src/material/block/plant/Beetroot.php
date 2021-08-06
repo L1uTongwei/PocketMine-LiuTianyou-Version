@@ -80,3 +80,4 @@ class BeetrootBlock extends FlowableBlock{
 		return $drops;
 	}
 }
+?>

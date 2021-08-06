@@ -42,3 +42,4 @@ class InteractPacket extends RakNetDataPacket{
 	}
 
 }
+?>

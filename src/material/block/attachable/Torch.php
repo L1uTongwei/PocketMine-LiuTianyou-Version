@@ -72,3 +72,4 @@ class TorchBlock extends FlowableBlock{
 		);
 	}
 }
+?>

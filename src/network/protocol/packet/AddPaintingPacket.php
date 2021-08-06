@@ -46,3 +46,4 @@ class AddPaintingPacket extends RakNetDataPacket{
 	}
 
 }
+?>

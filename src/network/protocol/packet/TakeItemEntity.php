@@ -38,3 +38,4 @@ class TakeItemEntityPacket extends RakNetDataPacket{
 	}
 
 }
+?>

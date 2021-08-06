@@ -25,3 +25,4 @@ class DiamondItem extends Item{
 	}
 
 }
+?>

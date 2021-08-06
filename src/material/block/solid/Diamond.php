@@ -49,3 +49,4 @@ class DiamondBlock extends SolidBlock{
 		}
 	}
 }
+?>

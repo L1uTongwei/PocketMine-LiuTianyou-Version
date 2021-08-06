@@ -63,3 +63,4 @@ class FenceGateBlock extends TransparentBlock{
 		return true;
 	}	
 }
+?>

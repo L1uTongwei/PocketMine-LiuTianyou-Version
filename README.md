@@ -9,20 +9,9 @@
 
 使用Sakura Frp进行内网穿透（不是广告），可以使用逍遥模拟器模拟MCPE在电脑上的运行（不是广告x2）
 
-1. 安装git for windows，链接在此：https://github.com/git-for-windows/git/releases/download/v2.32.0.windows.2/Git-2.32.0.2-64-bit.exe
+1. 建立PocketMine-MP文件夹，然后下载releases中的PHP单文件放进去。
 
-![](https://cdn.luogu.com.cn/upload/image_hosting/adw5xt9g.png)
-![](https://cdn.luogu.com.cn/upload/image_hosting/fhq0ezns.png)
-![](https://cdn.luogu.com.cn/upload/image_hosting/hkhf0v00.png)
-
-2. 要建立文件夹，在你要建立的文件夹的上一个文件夹点击左上角文件->以管理员身份打开Powershell
-
-![](http://tiebapic.baidu.com/forum/w%3D580/sign=7bb23b91683e6709be0045f70bc69fb8/712ff4fdfc0392450abc26b99094a4c27c1e2559.jpg)
-
-运行命令
-```git clone https://github.com/LiuTianyouOnLuogu/PocketMine-LiuTianyou-Version.git PocketMine-MP```
-
-然后你就得到了PocketMine-MP文件夹。
+（也可以直接下载仓库根目录的）
 
 3. 注意了，下面这一步特别重要（最好别先使用现成的PHP）：
 
@@ -89,13 +78,13 @@ threads文件夹有threads_VC2.dll php_threads.dll
 
 ### 本次提交的更新日志
 
-重大更新！这次更新了52个文件，主要是将`require_once()`转换为以`require()`为基础的自定义包含函数，显著提升了速度。
+重大更新！
 
-提升前的启动时间为16s，提升后只有3s。
+1. 加入了单文件支持，默认安装改为单文件安装，可通过build.php创建。
 
-并且增加了炫酷的输出以及刷新缓冲区。
+加入单文件之后，直接执行单文件即可。
 
-版本号升级为2.0，代号伊莱·凡斯。
+2. 再次提高启动速度，现在大约为0.3s
 
 ### 有关版本号的约定
 

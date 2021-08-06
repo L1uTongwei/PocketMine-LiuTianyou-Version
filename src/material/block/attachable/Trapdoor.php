@@ -57,3 +57,4 @@ class TrapdoorBlock extends TransparentBlock{
 		return true;
 	}
 }
+?>

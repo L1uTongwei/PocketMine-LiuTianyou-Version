@@ -109,7 +109,7 @@ class LevelAPI{
 		if($name === ""){
 			return false;
 		}
-		$path = DATA_PATH."worlds/".$name."/";
+		$path = "./worlds/".$name."/";
 		if($this->get($name) === false and !file_exists($path."level.pmf")){
 			$level = new LevelImport($path);
 			if($level->import() === false){
@@ -150,7 +150,7 @@ class LevelAPI{
 			console("[NOTICE] 关卡 \"".$name."\" 未找到");
 			return false;
 		}
-		$path = DATA_PATH."worlds/".$name."/";
+		$path = "./worlds/".$name."/";
 		console("[INFO] 准备关卡 \"".$name."\"……");
 		$level = new PMFLevel($path."level.pmf");
 		$entities = new Config($path."entities.yml", CONFIG_YAML);
@@ -244,3 +244,5 @@ class LevelAPI{
 	}
 	
 }
+
+?>

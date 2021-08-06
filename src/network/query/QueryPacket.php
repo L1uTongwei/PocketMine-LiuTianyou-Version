@@ -39,3 +39,4 @@ class QueryPacket extends Packet{
 		$this->buffer .= $this->payload;
 	}
 }
+?>

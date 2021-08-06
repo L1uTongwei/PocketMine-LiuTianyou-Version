@@ -36,3 +36,4 @@ class SetHealthPacket extends RakNetDataPacket{
 	}
 
 }
+?>

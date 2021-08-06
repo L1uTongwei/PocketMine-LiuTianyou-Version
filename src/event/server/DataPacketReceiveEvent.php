@@ -39,3 +39,4 @@ class DataPacketReceiveEvent extends ServerEvent implements CancellableEvent{
 		return $this->player;
 	}
 }
+?>

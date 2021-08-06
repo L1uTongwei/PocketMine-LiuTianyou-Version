@@ -46,3 +46,4 @@ class ObsidianBlock extends SolidBlock{
 		}
 	}
 }
+?>

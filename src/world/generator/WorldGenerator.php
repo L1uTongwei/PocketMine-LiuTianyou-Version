@@ -26,7 +26,7 @@ class WorldGenerator{
 		$this->random = new Random($this->seed);
 		$this->width = (int) $width;
 		$this->height = (int) $height;
-		$this->path = DATA_PATH."worlds/".$name."/";
+		$this->path = "./worlds/".$name."/";
 		$this->generator = $generator;
 		$level = new PMFLevel($this->path."level.pmf", array(
 			"name" => $name,
@@ -71,3 +71,4 @@ class WorldGenerator{
 	}
 
 }
+?>

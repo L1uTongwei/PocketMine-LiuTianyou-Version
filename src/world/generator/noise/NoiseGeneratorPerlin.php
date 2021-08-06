@@ -167,3 +167,4 @@ class NoiseGeneratorPerlin extends NoiseGenerator{
 		}
 	}
 }
+?>

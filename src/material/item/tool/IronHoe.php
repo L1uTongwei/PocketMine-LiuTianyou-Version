@@ -25,3 +25,4 @@ class IronHoeItem extends Item{
 	}
 
 }
+?>

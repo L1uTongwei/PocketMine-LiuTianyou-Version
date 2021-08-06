@@ -79,3 +79,4 @@ class CarrotBlock extends FlowableBlock{
 		return $drops;
 	}
 }
+?>

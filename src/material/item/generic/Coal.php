@@ -28,3 +28,4 @@ class CoalItem extends Item{
 	}
 
 }
+?>

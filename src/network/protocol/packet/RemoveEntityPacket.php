@@ -36,3 +36,4 @@ class RemoveEntityPacket extends RakNetDataPacket{
 	}
 
 }
+?>

@@ -32,3 +32,4 @@ class FurnaceBlock extends BurningFurnaceBlock{
 		$this->isActivable = true;
 	}
 }
+?>

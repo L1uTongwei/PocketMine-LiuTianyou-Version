@@ -40,3 +40,4 @@ class SetSpawnPositionPacket extends RakNetDataPacket{
 	}
 
 }
+?>

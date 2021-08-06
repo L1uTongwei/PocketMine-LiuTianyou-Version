@@ -25,3 +25,4 @@ class BrickItem extends Item{
 	}
 
 }
+?>

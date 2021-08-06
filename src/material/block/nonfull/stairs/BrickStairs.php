@@ -25,3 +25,4 @@ class BrickStairsBlock extends StairBlock{
 	}
 	
 }
+?>

@@ -105,3 +105,4 @@ class WoodSlabBlock extends TransparentBlock{
 		);
 	}
 }
+?>

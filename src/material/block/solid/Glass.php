@@ -29,3 +29,4 @@ class GlassBlock extends TransparentBlock{
 		return array();
 	}
 }
+?>
