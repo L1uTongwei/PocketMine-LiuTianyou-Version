@@ -73,7 +73,7 @@ cd ~
 wget http://www.zlib.net/zlib-1.2.11.tar.gz
 tar xzvf zlib-1.2.11.tar.gz
 cd zlib-1.2.11
-./autogen.sh
+./autogen.sh #会报错，把报错的程序用vim打开，报错行注释即可
 ./configure --prefix=/data/data/com.termux/files/home/zlib
 make && make install
 ```
