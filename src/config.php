@@ -41,7 +41,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . FILE_PATH);
 ini_set("memory_limit", "128M"); //Default
 define("LOG", true);
 define("START_TIME", microtime(true));
-define("HACK_VERSION", "Hack_2.1"); //2.x表示代码大改
+define("HACK_VERSION", "Hack_2.2"); //2.x表示代码大改
 define("MAJOR_VERSION", "Alpha_1.3.12 (".HACK_VERSION.")");
 define("CODENAME", "伊莱·凡斯（Eli Vance）");
 define("CURRENT_MINECRAFT_VERSION", "v0.8.1 alpha");

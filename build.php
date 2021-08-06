@@ -83,12 +83,18 @@ exit(0);
 $filename = "PocketMine-MP.php";
 $GLOBALS['output'] = str_replace("<?php", "", $GLOBALS['output']);
 $GLOBALS['output'] = str_replace("?>", "", $GLOBALS['output']);
-file_put_contents($filename, "<?php".$GLOBALS['output']."?>");
+file_put_contents($filename, $GLOBALS['output']);
 
-$before = round(strlen($GLOBALS['output']) / 1024.0, 2);
-$after = round(strlen($PM.php_strip_whitespace($filename)) / 1024.0, 2);
-$percent = round($after / $before, 2);
+$before = strlen($GLOBALS['output']);
+$after = strlen(gzdeflate(php_strip_whitespace($filename), 9));
+$percent = round($after / $before, 2) * 100;
+$before = round($before / 1024.0, 2);
+$after = round($after / 1024.0, 2);
 $PM .= "//DEFLATE Compressed PocketMine-MP | $percent% ($after KB/$before KB)\n";
-$compress = "<?php\n".$PM."?>\n".php_strip_whitespace($filename);
+$PM .= "\$fp = fopen(__FILE__, \"r\");
+fseek(\$fp, __COMPILER_HALT_OFFSET__);
+eval(gzinflate(stream_get_contents(\$fp)));
+__halt_compiler();";
+$compress = "<?php\n".$PM.gzdeflate(php_strip_whitespace($filename), 9);
 file_put_contents($filename, $compress);
 ?>
