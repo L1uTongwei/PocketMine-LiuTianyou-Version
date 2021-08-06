@@ -37,7 +37,95 @@ threads文件夹有threads_VC2.dll php_threads.dll
 
 ### Linux & Mac
 
-运行src/build/compile.sh和installer.sh，进行自动安装。
+参见Android
+
+### Android
+
+1. 下载Termux
+
+下载地址（官网）：https://f-droid.org/repo/com.termux_117.apk
+
+注意：只有新版Android（Android 7.0）才能运行Termux，太老的版本不行。
+
+此方式可能会占用大量空间（100MB以上）。
+
+2. 安装PHP环境
+
+**这是一个相当复杂的过程，我自己尝试了3-4个小时才搞定。然而，你可以只用半小时做这些，会很爽！**
+
+安装前置软件包：
+```bash
+pkg install wget libxml2 clang vim make autoconf libtool automake pkg-config iconv libyaml -y 
+```
+
+安装libxml2和zlib库，以安装PHP（严格复制）：
+```bash
+cd ~
+wget https://gitlab.gnome.org/GNOME/libxml2/-/archive/master/libxml2-master.tar.gz
+tar libxml2-master.tar.gz
+cd libxml2-master
+./configure --prefix=/data/data/com.termux/files/home/libxml2
+make && make install
+```
+
+```bash
+cd ~
+wget http://www.zlib.net/zlib-1.2.11.tar.gz
+tar xzvf zlib-1.2.11.tar.gz
+cd zlib-1.2.11
+./autogen.sh
+./configure --prefix=/data/data/com.termux/files/home/zlib
+make && make install
+```
+
+下载PHP源代码，编译：
+```bash
+cd ~
+wget https://www.php.net/distributions/php-5.6.40.tar.gz
+tar xzvf php-5.6.40.tar.gz
+cd php-5.6.40
+# 抱歉让大家受苦了
+# 用https://www.luogu.com.cn/paste/o3vxbtgf 替换ext/standard/dns.c
+./configure --prefix=/data/data/com.termux/files/home/php --exec-prefix=/data/data/com.termux/files/home/php --bindir=/data/data/com.termux/files/home/php/bin --sbindir=/data/data/com.termux/files/home/php/sbin --includedir=/data/data/com.termux/files/home/php/include  --libdir=/data/data/com.termux/files/home/php/lib/php --mandir=/data/data/com.termux/files/home/php/man --with-config-file-path=/data/data/com.termux/files/home/php/etc --with-zlib  --enable-pcntl --enable-sockets --with-curl  --enable-opcache  --with-zlib-dir=/data/data/com.termux/files/home/zlib --with-libxml-dir=/data/data/com.termux/files/home/libxml2 --with-curl=/data/data/com.termux/files/usr  --with-iconv=/data/data/com.termux/files/usr --enable-maintainer-zts
+make && make install -k
+echo "export PATH=\"$PATH:/data/data/com.termux/files/home/php/bin\"" >> ~/.bashrc
+source ~/.bashrc
+```
+
+下载pthread和yaml扩展，安装：
+```bash
+cd ~
+wget https://pecl.php.net/get/pthreads-1.0.1.tgz
+tar xzvf pthreads-1.0.1.tgz
+cd pthreads-1.0.1
+phpize
+./configure --with-php-config=/data/data/com.termux/files/home/php/bin/php-config
+make && make install
+
+cd ~
+wget https://pecl.php.net/get/yaml-1.2.0.tgz
+tar xzvf yaml-1.2.0.tgz
+cd yaml-1.2.0
+phpize
+./configure --with-php-config=/data/data/com.termux/files/home/php/bin/php-config --with-yaml=/data/data/com.termux/files/usr
+make && make install
+
+echo "[PHP]" > ~/php/etc/php.ini #php.ini许多值是默认的，所以只需要三行
+echo "extension = pthreads.so" >> ~/php/etc/php.ini #线程库
+echo "extension = yaml.so" >> ~/php/etc/php.ini #yaml库
+```
+
+3. 运行
+
+进入你的文件夹，运行```php -d enable_dl=On PocketMine-MP.php```即可。
+
+注意：你可以通过写一个bash脚本实现：
+```bash
+#!/bin/bash
+DIR="$(cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
+cd "$DIR"
+php -d enable_dl=On PocketMine-MP.php
+```
 
 ### 内网穿透
 
