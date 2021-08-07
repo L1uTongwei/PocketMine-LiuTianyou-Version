@@ -67,7 +67,19 @@ cd php-5.6.40
 # 抱歉让大家受苦了
 # 用https://www.luogu.com.cn/paste/o3vxbtgf 替换ext/standard/dns.c
 # 为什么找不到库？因为你没有pkg安装。不需要编译安装，需要写上目录/data/data/com.termux/files/usr
-./configure --prefix=/data/data/com.termux/files/home/php --exec-prefix=/data/data/com.termux/files/home/php --bindir=/data/data/com.termux/files/home/php/bin --sbindir=/data/data/com.termux/files/home/php/sbin --includedir=/data/data/com.termux/files/home/php/include  --libdir=/data/data/com.termux/files/home/php/lib/php --mandir=/data/data/com.termux/files/home/php/man --with-config-file-path=/data/data/com.termux/files/home/php/etc --with-zlib  --enable-pcntl --enable-sockets --with-curl  --enable-opcache  --with-zlib-dir=/data/data/com.termux/files/usr --with-libxml-dir=/data/data/com.termux/files/usr --with-curl=/data/data/com.termux/files/usr  --with-iconv=/data/data/com.termux/files/usr --enable-maintainer-zts
+./configure --prefix=/data/data/com.termux/files/home/php \
+    --exec-prefix=/data/data/com.termux/files/home/php \
+    --bindir=/data/data/com.termux/files/home/php/bin \
+    --sbindir=/data/data/com.termux/files/home/php/sbin \
+    --includedir=/data/data/com.termux/files/home/php/include \
+    --libdir=/data/data/com.termux/files/home/php/lib/php \
+    --mandir=/data/data/com.termux/files/home/php/man \
+    --with-config-file-path=/data/data/com.termux/files/home/php/etc \
+    --with-zlib  --enable-pcntl --enable-sockets --with-curl  --enable-opcache \
+    --with-zlib-dir=/data/data/com.termux/files/usr \
+    --with-libxml-dir=/data/data/com.termux/files/usr \
+    --with-curl=/data/data/com.termux/files/usr \
+    --with-iconv=/data/data/com.termux/files/usr --enable-maintainer-zts
 make && make install -k
 echo "export PATH=\"$PATH:/data/data/com.termux/files/home/php/bin\"" >> ~/.bashrc #非必须，但没有会找不到
 source ~/.bashrc
@@ -179,13 +191,6 @@ php -d enable_dl=On PocketMine-MP.php
 
 ### 本次提交的更新日志
 
-重大更新！
-
-1. 加入了单文件支持，默认安装改为单文件安装，可通过build.php创建。
-
-加入单文件之后，直接执行单文件即可。
-
-2. 再次提高启动速度，现在大约为0.3s
 
 ### 有关版本号的约定
 
