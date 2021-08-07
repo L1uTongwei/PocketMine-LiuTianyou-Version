@@ -55,27 +55,7 @@ threads文件夹有threads_VC2.dll php_threads.dll
 
 安装前置软件包：
 ```bash
-pkg install wget libxml2 clang vim make autoconf libtool automake pkg-config iconv libyaml -y 
-```
-
-安装libxml2和zlib库，以安装PHP（严格复制）：
-```bash
-cd ~
-wget https://gitlab.gnome.org/GNOME/libxml2/-/archive/master/libxml2-master.tar.gz
-tar libxml2-master.tar.gz
-cd libxml2-master
-./configure --prefix=/data/data/com.termux/files/home/libxml2
-make && make install
-```
-
-```bash
-cd ~
-wget http://www.zlib.net/zlib-1.2.11.tar.gz
-tar xzvf zlib-1.2.11.tar.gz
-cd zlib-1.2.11
-./autogen.sh #会报错，把报错的程序用vim打开，报错行注释即可
-./configure --prefix=/data/data/com.termux/files/home/zlib
-make && make install
+pkg install wget libxml2 clang vim make autoconf libtool automake pkg-config iconv libyaml zlib -y 
 ```
 
 下载PHP源代码，编译：
@@ -86,9 +66,10 @@ tar xzvf php-5.6.40.tar.gz
 cd php-5.6.40
 # 抱歉让大家受苦了
 # 用https://www.luogu.com.cn/paste/o3vxbtgf 替换ext/standard/dns.c
-./configure --prefix=/data/data/com.termux/files/home/php --exec-prefix=/data/data/com.termux/files/home/php --bindir=/data/data/com.termux/files/home/php/bin --sbindir=/data/data/com.termux/files/home/php/sbin --includedir=/data/data/com.termux/files/home/php/include  --libdir=/data/data/com.termux/files/home/php/lib/php --mandir=/data/data/com.termux/files/home/php/man --with-config-file-path=/data/data/com.termux/files/home/php/etc --with-zlib  --enable-pcntl --enable-sockets --with-curl  --enable-opcache  --with-zlib-dir=/data/data/com.termux/files/home/zlib --with-libxml-dir=/data/data/com.termux/files/home/libxml2 --with-curl=/data/data/com.termux/files/usr  --with-iconv=/data/data/com.termux/files/usr --enable-maintainer-zts
+# 为什么找不到库？因为你没有pkg安装。不需要编译安装，需要写上目录/data/data/com.termux/files/usr
+./configure --prefix=/data/data/com.termux/files/home/php --exec-prefix=/data/data/com.termux/files/home/php --bindir=/data/data/com.termux/files/home/php/bin --sbindir=/data/data/com.termux/files/home/php/sbin --includedir=/data/data/com.termux/files/home/php/include  --libdir=/data/data/com.termux/files/home/php/lib/php --mandir=/data/data/com.termux/files/home/php/man --with-config-file-path=/data/data/com.termux/files/home/php/etc --with-zlib  --enable-pcntl --enable-sockets --with-curl  --enable-opcache  --with-zlib-dir=/data/data/com.termux/files/usr --with-libxml-dir=/data/data/com.termux/files/usr --with-curl=/data/data/com.termux/files/usr  --with-iconv=/data/data/com.termux/files/usr --enable-maintainer-zts
 make && make install -k
-echo "export PATH=\"$PATH:/data/data/com.termux/files/home/php/bin\"" >> ~/.bashrc
+echo "export PATH=\"$PATH:/data/data/com.termux/files/home/php/bin\"" >> ~/.bashrc #非必须，但没有会找不到
 source ~/.bashrc
 ```
 
@@ -127,6 +108,10 @@ cd "$DIR"
 php -d enable_dl=On PocketMine-MP.php
 ```
 
+4. 内网穿透
+
+参见下文Android节
+
 ### 内网穿透
 
 1. 下面说我们的重点：内网穿透。
@@ -163,6 +148,34 @@ php -d enable_dl=On PocketMine-MP.php
 ![](https://cdn.luogu.com.cn/upload/image_hosting/43z2ut50.png)
 
 这里有一个深坑啊，解析之后别立马尝试，要等待1-5分钟，否则域名解析不生效也不行
+
+3. Android
+
+首先，确认你的Android架构（使用`uname -a`）。然后，选择在Sakura Frp下载相应的版本。
+
+```
+架构	输出结果
+i386	i386, i686
+amd64	x86_64
+armv6	arm
+armv7	armv7l
+arm64	aarch64, armv8l
+mips*	mips
+mips64*	mips64
+不支持	alpha, arc, blackfin, c6x, cris, frv, h8300, hexagon, ia64, m32r, m68k, metag, microblaze, mn10300, nios2, openrisc, parisc, parisc64, ppc, ppcle, ppc64, ppc64le, s390, s390x, score, sh, sh64, sparc, sparc64, tile, unicore32, xtensa
+```
+
+```bash
+cp (你下载的frpc文件) ~/php/bin/ # 这是为了加入PATH
+```
+
+接着，如上文所述使用即可。你可能需要编写一个脚本来实现自动运行：
+```bash
+DIR="$(cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
+cd "$DIR"
+frpc xxxx:xxx,xxx & # &符号指的是异步运行
+php -d enable_dl=On PocketMine-MP.php
+```
 
 ### 本次提交的更新日志
 

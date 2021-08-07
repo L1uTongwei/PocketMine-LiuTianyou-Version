@@ -46,12 +46,12 @@ if(php_sapi_name() !== "cli"){
 	++$errors;
 }
 
-if(!extension_loaded("sockets") and @dl((PHP_SHLIB_SUFFIX === "dll" ? "php_":"") . "sockets." . PHP_SHLIB_SUFFIX) === false){
+if(!extension_loaded("sockets")){
 	console("[ERROR] 找不到socket扩展。", true, true, 0);
 	++$errors;
 }
 
-if(!extension_loaded("pthreads") and @dl((PHP_SHLIB_SUFFIX === "dll" ? "php_":"") . "pthreads." . PHP_SHLIB_SUFFIX) === false){
+if(!extension_loaded("pthreads")){
 	console("[ERROR] 找不到pthreads扩展。", true, true, 0);
 	++$errors;
 }else{
@@ -65,22 +65,22 @@ if(!extension_loaded("pthreads") and @dl((PHP_SHLIB_SUFFIX === "dll" ? "php_":""
 	}	
 }
 
-if(!extension_loaded("curl") and @dl((PHP_SHLIB_SUFFIX === "dll" ? "php_":"") . "curl." . PHP_SHLIB_SUFFIX) === false){
+if(!extension_loaded("curl")){
 	console("[ERROR] 找不到curl扩展。", true, true, 0);
 	++$errors;
 }
 
-if(!extension_loaded("sqlite3") and @dl((PHP_SHLIB_SUFFIX === "dll" ? "php_":"") . "sqlite3." . PHP_SHLIB_SUFFIX) === false){
+if(!extension_loaded("sqlite3")){
 	console("[ERROR] 找不到sqlite3扩展。", true, true, 0);
 	++$errors;
 }
 
-if(!extension_loaded("yaml") and @dl((PHP_SHLIB_SUFFIX === "dll" ? "php_":"") . "yaml." . PHP_SHLIB_SUFFIX) === false){
+if(!extension_loaded("yaml")){
 	console("[ERROR] 找不到yaml扩展。", true, true, 0);
 	++$errors;
 }
 
-if(!extension_loaded("zlib") and @dl((PHP_SHLIB_SUFFIX === "dll" ? "php_":"") . "zlib." . PHP_SHLIB_SUFFIX) === false){
+if(!extension_loaded("zlib")){
 	console("[ERROR] 找不到zlib扩展。", true, true, 0);
 	++$errors;
 }
