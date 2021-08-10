@@ -130,14 +130,9 @@ php -d enable_dl=On PocketMine-MP.php
 
 大部分教程都是使用路由器穿透的，然而大部分人（中国移动出来挨打）没有固定的公网IP，甚至连公网IP都没有。我向大家推荐一个网站：https://www.natfrp.com/，这个网站完全免费（穿透Web需要实名认证收费）。
 
-注册一个账号，按照图片中的配置穿透隧道（TCP和UDP，有人说不需要TCP，但是为了保险还是一起穿透吧）
+注册一个账号，按照图片中的配置穿透隧道（选UDP，可以改备注）
 
-![](https://cdn.luogu.com.cn/upload/image_hosting/ntyh5g9c.png)
 ![](https://cdn.luogu.com.cn/upload/image_hosting/1av0nep2.png)
-
-2. 你现在应该有了两个隧道（忽略“在线”）：
-
-![](https://cdn.luogu.com.cn/upload/image_hosting/at92shxr.png)
 
 记住最开头的ID，还有你的访问密钥：
 ![](https://cdn.luogu.com.cn/upload/image_hosting/rru1dvsc.png)
@@ -146,9 +141,9 @@ php -d enable_dl=On PocketMine-MP.php
 
 放在PocketMine文件夹内，在start.cmd（或是start_without_mintty.cmd）内添加：
 
-```frpc.exe -f 访问密钥:ID1,ID2```
+```frpc.exe -f 访问密钥:ID1```
 
-示例：```frpc.exe -f 114514abcd:1145141,1145142```
+示例：```frpc.exe -f 114514abcd:114514```
 
 3.如图，如果没有域名，就可以输入节点的域名（IP也行）和外网端口。
 ![](https://cdn.luogu.com.cn/upload/image_hosting/87qn8293.png)
@@ -191,10 +186,17 @@ php -d enable_dl=On PocketMine-MP.php
 
 ### 本次提交的更新日志
 
+1. 大改变！废除players文件夹，用password.db存储玩家信息，避免同步错误
+
+（知道为啥叫这名吗？我要为验证更新做准备）
+
+如果需要将旧版信息同步至数据库，请手动修改。
+
+2. 增加AuthAPI.php文件
 
 ### 有关版本号的约定
 
-版本号固定为Alpha_1.3.12(Hack Version Alpha_1.x.x)，适用于MCPE Alpha_0.8.1（也许0.9.x也能用吧）
+版本号固定为Alpha_1.3.12(Hack_x.x)，适用于MCPE Alpha_0.8.1（也许0.9.x也能用吧）
 
 目前的版本代号以半条命的人物命名，例：戈登·弗里曼（Gordon Freeman）
 

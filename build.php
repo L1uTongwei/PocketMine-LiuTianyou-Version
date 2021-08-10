@@ -75,6 +75,8 @@ Windows PHP不支持Pcntl扩展，这使得它无法进行信号处理
 如果你使用Ctrl+C发送SIGINT信号，信号被发送到了PHP而不是C++ 
 所以暂时没有这样的计划，很抱歉，发送SIGINT信号后只能强制退出。*/ 
 
+\$GLOBALS['UserDatabase'] = new AuthAPI; //只有一个开启的数据库，避免数据不同步
+
 \$server->start(); 
 
 kill(getmypid()); //Fix for ConsoleAPI being blocked 

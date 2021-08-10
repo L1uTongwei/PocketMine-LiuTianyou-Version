@@ -117,7 +117,6 @@ class PlayerAPI{
                 break;
         }
     }
-
     public function commandHandler($cmd, $params, $issuer, $alias){
         $output = "";
         switch($cmd){
@@ -386,10 +385,10 @@ class PlayerAPI{
         if(isset($this->server->clients[$CID])){
             $player = $this->server->clients[$CID];
             $player->data = $this->getOffline($player->username);
-            $player->gamemode = $player->data->get("gamemode");
-            if(($player->level = $this->server->api->level->get($player->data->get("position")["level"])) === false){
+            $player->gamemode = $GLOBALS['UserDatabase']->get($player->username, "gamemode");
+            if(($player->level = $this->server->api->level->get($GLOBALS['UserDatabase']->get($player->username, "position")["level"])) === false){
                 $player->level = $this->server->api->level->getDefault();
-                $player->data->set("position", array(
+                $GLOBALS['UserDatabase']->set($player->username, "position", array(
                     "level" => $player->level->getName(),
                     "x" => $player->level->getSpawn()->x,
                     "y" => $player->level->getSpawn()->y,
@@ -441,9 +440,6 @@ class PlayerAPI{
             $player = $this->server->clients[$CID];
             unset($this->server->clients[$CID]);
             $player->close();
-            if($player->username != "" and ($player->data instanceof Config)){
-                $this->saveOffline($player->data);
-            }
             $this->server->query("DELETE FROM players WHERE name = '".$player->username."';");
             if($player->entity instanceof Entity){
                 unset($player->entity->player);
@@ -481,24 +477,11 @@ class PlayerAPI{
             "achievements" => array(),
         );
 
-        if(!file_exists("./players/".$iname.".yml")){
-            console("[NOTICE] 找不到 \"".$iname."\"的玩家数据，正在创建新的配置文件。");
-            $data = new Config("./players/".$iname.".yml", CONFIG_YAML, $default);
-            $data->save();
-        }else{
-            $data = new Config("./players/".$iname.".yml", CONFIG_YAML, $default);
-        }
-
-        if(($data->get("gamemode") & 0x01) === 1){
-            $data->set("health", 20);
+        if(($GLOBALS['UserDatabase']->get($name, "gamemode") & 0x01) === 1){
+            $GLOBALS['UserDatabase']->set($name, "health", 20);
         }
         $this->server->handle("player.offline.get", $data);
         return $data;
-    }
-
-    public function saveOffline(Config $data){
-        $this->server->handle("player.offline.save", $data);
-        $data->save();
     }
 }
 

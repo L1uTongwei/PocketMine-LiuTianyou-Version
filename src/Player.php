@@ -236,14 +236,14 @@ class Player{
 
 	public function save(){
 		if($this->entity instanceof Entity){
-			$this->data->set("achievements", $this->achievements);
-			$this->data->set("position", array(
+			$GLOBALS['UserDatabase']->set($this->username, "achievements", $this->achievements);
+			$GLOBALS['UserDatabase']->set($this->username, "position", array(
 				"level" => $this->entity->level->getName(),
 				"x" => $this->entity->x,
 				"y" => $this->entity->y,
 				"z" => $this->entity->z,
 			));
-			$this->data->set("spawn", array(
+			$GLOBALS['UserDatabase']->set($this->username, "spawn", array(
 				"level" => $this->spawnPosition->level->getName(),
 				"x" => $this->spawnPosition->x,
 				"y" => $this->spawnPosition->y,
@@ -257,8 +257,8 @@ class Player{
 					}
 				}
 			}
-			$this->data->set("inventory", $inv);
-			$this->data->set("hotbar", $this->hotbar);
+			$GLOBALS['UserDatabase']->set($this->username, "inventory", $inv);
+			$GLOBALS['UserDatabase']->set($this->username, "hotbar", $this->hotbar);
 			
 			$armor = array();
 			foreach($this->armor as $slot => $item){
@@ -266,11 +266,11 @@ class Player{
 					$armor[$slot] = array($item->getID(), $item->getMetadata());
 				}
 			}
-			$this->data->set("armor", $armor);
+			$GLOBALS['UserDatabase']->set($this->username, "armor", $armor);
 			if($this->entity instanceof Entity){
-				$this->data->set("health", $this->entity->getHealth());
+				$GLOBALS['UserDatabase']->set($this->username, "health", $this->entity->getHealth());
 			}
-			$this->data->set("gamemode", $this->gamemode);
+			$GLOBALS['UserDatabase']->set($this->username, "gamemode", $this->gamemode);
 		}
 	}
 
@@ -1358,13 +1358,9 @@ class Player{
 					return;
 				}
 				
-				if(!($this->data instanceof Config)){
-					$this->close("没有配置被创建", false);
-					return;
-				}
-				
 				$this->auth = true;
-				if(!$this->data->exists("inventory") or ($this->gamemode & 0x01) === 0x01){
+				$GLOBALS['UserDatabase']->init_user($this->username, $this->level, $this->gamemode, $this->ip, $this->CID);
+				if(!$GLOBALS['UserDatabase']->exists($this->username, "inventory") or ($this->gamemode & 0x01) === 0x01){
 					if(($this->gamemode & 0x01) === 0x01){
 						$inv = array();
 						if(($this->gamemode & 0x02) === 0x02){
@@ -1376,13 +1372,12 @@ class Player{
 								$inv[] = array($item[0], $item[1], 1);
 							}
 						}
+						$GLOBALS['UserDatabase']->set($this->username, "inventory", $inv);
 					}
-					$this->data->set("inventory", $inv);
 				}
-				$this->achievements = $this->data->get("achievements");
-				$this->data->set("caseusername", $this->username);
+				$this->achievements = $GLOBALS['UserDatabase']->get($this->username, "achievements");
 				$this->inventory = array();		
-				foreach($this->data->get("inventory") as $slot => $item){
+				foreach($GLOBALS['UserDatabase']->get($this->username, "inventory") as $slot => $item){
 					if(!is_array($item) or count($item) < 3){
 						$item = array(AIR, 0, 0);
 					}
@@ -1390,14 +1385,12 @@ class Player{
 				}
 
 				$this->armor = array();
-				foreach($this->data->get("armor") as $slot => $item){
+				foreach($GLOBALS['UserDatabase']->get($this->username, "armor") as $slot => $item){
 					$this->armor[$slot] = BlockAPI::getItem($item[0], $item[1], $item[0] === 0 ? 0:1);
 				}
 				
-				$this->data->set("lastIP", $this->ip);
-				$this->data->set("lastID", $this->clientID);
-
-				$this->server->api->player->saveOffline($this->data);
+				$GLOBALS['UserDatabase']->set($this->username, "lastIP", $this->ip);
+				$GLOBALS['UserDatabase']->set($this->username, "lastID", $this->clientID);
 
 
 				$pk = new LoginStatusPacket;
@@ -1406,9 +1399,9 @@ class Player{
 				
 				$pk = new StartGamePacket;
 				$pk->seed = $this->level->getSeed();
-				$pk->x = $this->data->get("position")["x"];
-				$pk->y = $this->data->get("position")["y"];
-				$pk->z = $this->data->get("position")["z"];
+				$pk->x = $GLOBALS['UserDatabase']->get($this->username, "position")["x"];
+				$pk->y = $GLOBALS['UserDatabase']->get($this->username, "position")["y"];
+				$pk->z = $GLOBALS['UserDatabase']->get($this->username, "position")["z"];
 				$pk->generator = 0;
 				$pk->gamemode = $this->gamemode & 0x01;
 				$pk->eid = 0;
@@ -1417,8 +1410,8 @@ class Player{
 				if(($this->gamemode & 0x01) === 0x01){
 					$this->slot = 0;
 					$this->hotbar = array();
-				}elseif($this->data->exists("hotbar")){
-					$this->hotbar = $this->data->get("hotbar");
+				}elseif($GLOBALS['UserDatabase']->exists($this->username, "hotbar")){
+					$this->hotbar = $GLOBALS['UserDatabase']->get($this->username, "hotbar");
 					$this->slot = $this->hotbar[0];
 				}else{
 					$this->slot = -1;//0
@@ -1427,11 +1420,11 @@ class Player{
 				$this->entity = $this->server->api->entity->add($this->level, ENTITY_PLAYER, 0, array("player" => $this));
 				$this->eid = $this->entity->eid;
 				$this->server->query("UPDATE players SET EID = ".$this->eid." WHERE CID = ".$this->CID.";");
-				$this->entity->x = $this->data->get("position")["x"];
-				$this->entity->y = $this->data->get("position")["y"];
-				$this->entity->z = $this->data->get("position")["z"];
-				if(($level = $this->server->api->level->get($this->data->get("spawn")["level"])) !== false){
-					$this->spawnPosition = new Position($this->data->get("spawn")["x"], $this->data->get("spawn")["y"], $this->data->get("spawn")["z"], $level);
+				$this->entity->x = $GLOBALS['UserDatabase']->get($this->username, "position")["x"];
+				$this->entity->y = $GLOBALS['UserDatabase']->get($this->username, "position")["y"];
+				$this->entity->z = $GLOBALS['UserDatabase']->get($this->username, "position")["z"];
+				if(($level = $this->server->api->level->get($GLOBALS['UserDatabase']->get($this->username, "spawn")["level"])) !== false){
+					$this->spawnPosition = new Position($GLOBALS['UserDatabase']->get($this->username, "spawn")["x"], $GLOBALS['UserDatabase']->get($this->username, "spawn")["y"], $GLOBALS['UserDatabase']->get($this->username, "spawn")["z"], $level);
 					
 					$pk = new SetSpawnPositionPacket;
 					$pk->x = (int) $this->spawnPosition->x;
@@ -1465,7 +1458,7 @@ class Player{
 						if($this->spawned !== false){
 							break;
 						}
-						$this->entity->setHealth($this->data->get("health"), "spawn", true);
+						$this->entity->setHealth($GLOBALS['UserDatabase']->get($this->username, "health"), "spawn", true);
 						$this->spawned = true;	
 						$this->server->api->player->spawnAllPlayers($this);
 						$this->server->api->player->spawnToAllPlayers($this);
@@ -1494,7 +1487,7 @@ class Player{
 						$pk->time = $this->level->getTime();
 						$this->dataPacket($pk);
 
-						$pos = new Position($this->data->get("position")["x"], $this->data->get("position")["y"], $this->data->get("position")["z"], $this->level);
+						$pos = new Position($GLOBALS['UserDatabase']->get($this->username, "position")["x"], $GLOBALS['UserDatabase']->get($this->username, "position")["y"], $GLOBALS['UserDatabase']->get($this->username, "position")["z"], $this->level);
 						$pos = $this->level->getSafeSpawn($pos);
 						$this->teleport($pos);
 						$this->server->schedule(10, array($this, "teleport"), $pos);
@@ -1540,7 +1533,8 @@ class Player{
 							$this->teleport($this->lastCorrect, $this->entity->yaw, $this->entity->pitch, false);
 						}
 						if($this->blocked !== true){
-							console("[WARNING] ".$this->username." 移动速度过快，服务器可能过载！");
+							//关闭这项提示，因为根本没用
+							//console("[WARNING] ".$this->username." 移动速度过快，服务器可能过载！");
 						}
 					}else{
 						$this->entity->setPosition($newPos, $packet->yaw, $packet->pitch);

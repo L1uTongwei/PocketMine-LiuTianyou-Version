@@ -96,7 +96,6 @@ class ServerAPI{
 	}
 	
 	public function load(){
-		@mkdir("./players/", 0755);
 		@mkdir("./worlds/", 0755);
 		@mkdir("./plugins/", 0755);
 		
@@ -124,7 +123,6 @@ class ServerAPI{
 			"spawn-protection" => 16,
 			"view-distance" => 10,
 			"max-players" => 20,
-			"allow-flight" => false,
 			"spawn-animals" => true,
 			"spawn-mobs" => true,
 			"gamemode" => SURVIVAL,

@@ -517,10 +517,11 @@ class Entity extends Position{
 						$this->fallY = $y;
 						$this->fallStart = microtime(true);
 					}elseif($this->class === ENTITY_PLAYER and ($this->fallStart + 5) < microtime(true)){
-						if($this->server->api->getProperty("allow-flight") !== true and $this->server->handle("player.flying", $this->player) !== true){
-							$this->player->close("flying");
-							return;
-						}
+						// 有bug，暂时关闭功能
+						// if($this->server->api->getProperty("allow-flight") !== true and $this->server->handle("player.flying", $this->player) !== true){
+						// 	$this->player->close("flying");
+						// 	return;
+						// }
 					}elseif($y > $this->fallY){
 						$this->fallY = $y;
 					}					
