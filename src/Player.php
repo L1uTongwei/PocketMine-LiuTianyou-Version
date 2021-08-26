@@ -60,7 +60,6 @@ class Player{
 	public $windowCnt = 2;
 	public $windows = array();
 	public $blocked = true;
-	public $achievements = array();
 	public $chunksLoaded = array();
 	private $chunksOrder = array();
 	private $lastMeasure = 0;
@@ -82,6 +81,9 @@ class Player{
 	public $loginData = array();
     /** @var \Level */
     public $level;
+
+	/** @var 是否验证成功 **/
+	public $authed;
 	
 	public function __get($name){
 		if(isset($this->{$name})){
@@ -97,6 +99,7 @@ class Player{
 	 * @param integer $MTU
 	 */
 	public function __construct($clientID, $ip, $port, $MTU){
+		$this->authed = false;
 		$this->bigCnt = 0;
 		$this->MTU = $MTU;
 		$this->server = ServerAPI::request();
@@ -236,7 +239,6 @@ class Player{
 
 	public function save(){
 		if($this->entity instanceof Entity){
-			$GLOBALS['UserDatabase']->set($this->username, "achievements", $this->achievements);
 			$GLOBALS['UserDatabase']->set($this->username, "position", array(
 				"level" => $this->entity->level->getName(),
 				"x" => $this->entity->x,
@@ -337,7 +339,6 @@ class Player{
 		}
 		$this->setSpawn($pos);
 		$this->server->schedule(60, array($this, "checkSleep"));
-		AchievementAPI::grantAchievement($this, "greatSleep");
 		return true;
 	}
 	
@@ -602,14 +603,6 @@ class Player{
 					if(($this->gamemode & 0x01) === 0x00){
 						$this->addItem($data["entity"]->type, $data["entity"]->meta, $data["entity"]->stack, false);
 					}
-					switch($data["entity"]->type){
-						case WOOD:
-							AchievementAPI::grantAchievement($this, "mineWood");
-							break;
-						case DIAMOND:
-							AchievementAPI::grantAchievement($this, "diamond");
-							break;
-					}
 				}elseif($data["entity"]->level === $this->level){
 					$pk = new TakeItemEntityPacket;
 					$pk->eid = $data["eid"];
@@ -841,44 +834,8 @@ class Player{
 					$this->setSlot($slot, BlockAPI::getItem($item->getID(), $item->getMetadata(), $s->count + $item->count), false);
 				}
 
-				switch($item->getID()){
-					case WORKBENCH:
-						AchievementAPI::grantAchievement($this, "buildWorkBench");
-						break;
-					case WOODEN_PICKAXE:
-						AchievementAPI::grantAchievement($this, "buildPickaxe");
-						break;
-					case FURNACE:
-						AchievementAPI::grantAchievement($this, "buildFurnace");
-						break;
-					case WOODEN_HOE:
-						AchievementAPI::grantAchievement($this, "buildHoe");
-						break;
-					case BREAD:
-						AchievementAPI::grantAchievement($this, "makeBread");
-						break;
-					case CAKE:
-						AchievementAPI::grantAchievement($this, "bakeCake");
-						break;
-					case STONE_PICKAXE:
-					case GOLD_PICKAXE:
-					case IRON_PICKAXE:
-					case DIAMOND_PICKAXE:
-						AchievementAPI::grantAchievement($this, "buildBetterPickaxe");
-						break;
-					case WOODEN_SWORD:
-						AchievementAPI::grantAchievement($this, "buildSword");
-						break;
-					case DIAMOND:
-						AchievementAPI::grantAchievement($this, "diamond");
-						break;
-					case NETHER_REACTOR:
-						AchievementAPI::grantAchievement($this, "abnormal");
-					case CAKE:
-						$this->addItem(BUCKET, 0, 3, false);
-						break;
-					case CLOCK:
-						AchievementAPI::grantAchievement($this, "wqnmlgb");
+				if($item->getID() == CAKE){
+					$this->addItem(BUCKET, 0, 3, false);
 				}
 			}
 		}
@@ -1375,7 +1332,6 @@ class Player{
 						$GLOBALS['UserDatabase']->set($this->username, "inventory", $inv);
 					}
 				}
-				$this->achievements = $GLOBALS['UserDatabase']->get($this->username, "achievements");
 				$this->inventory = array();		
 				foreach($GLOBALS['UserDatabase']->get($this->username, "inventory") as $slot => $item){
 					if(!is_array($item) or count($item) < 3){
@@ -1464,21 +1420,27 @@ class Player{
 						$this->server->api->player->spawnToAllPlayers($this);
 						$this->server->api->entity->spawnAll($this);
 						$this->server->api->entity->spawnToAll($this->entity);
-						
+
 						$this->server->schedule(5, array($this->entity, "update"), array(), true);
 						$this->server->schedule(2, array($this->entity, "updateMovement"), array(), true);
-						$this->sendArmor();
-						
+
 						$this->sendChat("这个服务器使用了基于PocketMine Alpha_1.3.12版本的刘天佑改版。\n");
 						$this->sendChat("根据LGPL协议，修改的源代码现已公布，可在以下的Github仓库观看。\n");
 						$this->sendChat("https://github.com/LiuTianyouOnLuogu/PocketMine-LiuTianyou-Version\n");
 						$this->sendChat("\n");
 						$this->sendChat($this->server->motd."\n");
-						
+
 						if($this->iusername === "steve" or $this->iusername === "stevie"){
 							$this->sendChat("你正在使用默认的名称，请在设置中修改。\n");
 						}
-						$this->sendInventory();
+
+						// while($this->authed == false && $this->server->api->getProperties("auth_mode") == true){
+						// 	$this->sendChat("请输入/password [密码]进行登录（注册）操作。");
+						// 	sleep(3);
+						// }
+
+						$this->sendArmor(); //传递盔甲栏
+						$this->sendInventory(); //传递物品栏
 						$this->sendSettings();
 						$this->server->schedule(50, array($this, "orderChunks"), array(), true);
 						$this->blocked = false;
@@ -2201,14 +2163,6 @@ class Player{
 						$pk->item = $slot;
 						$this->dataPacket($pk);
 						break;
-					}
-
-					if($tile->class === TILE_FURNACE and $packet->slot == 2){
-						switch($slot->getID()){
-							case IRON_INGOT:
-								AchievementAPI::grantAchievement($this, "acquireIron");
-								break;
-						}
 					}
 					
 					if($item->getID() !== AIR and $slot->getID() == $item->getID()){

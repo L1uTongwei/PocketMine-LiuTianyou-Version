@@ -52,35 +52,21 @@ __require_once("/src/dependencies.php");
 
 $GLOBALS['output'] .= "
 <?php
-/***REM_START***/ 
-__require_once(\"/src/config.php\"); 
+/***REM_START***/
+__require_once(\"/src/config.php\");
 
-__require_once(\"/src/functions.php\"); 
-__require_once(\"/src/dependencies.php\"); 
-/***REM_END***/ 
+__require_once(\"/src/functions.php\");
+__require_once(\"/src/dependencies.php\");
+/***REM_END***/
 
 \$server = new ServerAPI();
 
-function handler(\$sig){ 
-    global \$server; 
-    \$server->request()->close(); 
-} 
-if(Utils::getOS() == \"linux\"){ 
-    pcntl_signal(SIGINT, \"handler\");
-}
-/*注释：关于Windows下的信号处理 
-Windows PHP不支持Pcntl扩展，这使得它无法进行信号处理 
-我曾经使用C++做一个守护进程，使用管道解决问题。
-但是这需要使用Cygwin，而且还是需要切换代码页为65001 
-如果你使用Ctrl+C发送SIGINT信号，信号被发送到了PHP而不是C++ 
-所以暂时没有这样的计划，很抱歉，发送SIGINT信号后只能强制退出。*/ 
-
 \$GLOBALS['UserDatabase'] = new AuthAPI; //只有一个开启的数据库，避免数据不同步
 
-\$server->start(); 
+\$server->start();
 
-kill(getmypid()); //Fix for ConsoleAPI being blocked 
-exit(0); 
+kill(getmypid()); //Fix for ConsoleAPI being blocked
+exit(0);
 ?>";
 $filename = "PocketMine-MP.php";
 $GLOBALS['output'] = str_replace("<?php", "", $GLOBALS['output']);

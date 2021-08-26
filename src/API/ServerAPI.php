@@ -119,7 +119,6 @@ class ServerAPI{
 			"server-type" => "normal",
 			"memory-limit" => "128M",
 			"white-list" => false,
-			"announce-player-achievements" => true,
 			"spawn-protection" => 16,
 			"view-distance" => 10,
 			"max-players" => 20,
@@ -137,7 +136,8 @@ class ServerAPI{
 			"send-usage" => true,
 			"auto-save" => true,
 			"safe_mode" => true,
-			"proxy" => false,
+			"proxy_mode" => false,
+			"auth_mode" => false,
 		));
 		
 		$this->parseProperties();
@@ -264,7 +264,8 @@ class ServerAPI{
 			$this->server->difficulty = $this->getProperty("difficulty");
 			$this->server->whitelist = $this->getProperty("white-list");
 			$this->server->safeMode = $this->getProperty("safe_mode");
-			$this->server->proxy = $this->getProperty("proxy");
+			$this->server->proxy = $this->getProperty("proxy_mode");
+			$this->server->auth = $this->getProperty("auth_mode");
 		}
 	}
 

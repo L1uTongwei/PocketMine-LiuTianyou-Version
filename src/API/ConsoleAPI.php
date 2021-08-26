@@ -41,8 +41,33 @@ class ConsoleAPI{
 		$this->register("difficulty", "<0|1|2|3>", array($this, "defaultCommands"));
 		$this->register("stop", "", array($this, "defaultCommands"));
 		$this->register("defaultgamemode", "<模式>", array($this, "defaultCommands"));
+		$this->register("pasword", "[密码]", array($this, "password"));
 		$this->server->api->ban->cmdWhitelist("help");
 	}
+
+	public function password($cmd, $params, $issuer, $alias){
+        if(!($issuer instanceof Player)){
+            console("只能在游戏中使用该命令！");
+        }
+        if($issuer->authed == true){
+            $issuer->sendChat("你已经验证，无需再次验证！");
+        }
+        if($GLOBALS['UserDatabase']->user_has_authed($issuer->username) == false){
+            $issuer->sendChat("正在创建新的用户……");
+            $GLOBALS['UserDatabase']->newUser($issuer->username, $params[0]);
+            $issuer->sendChat("用户创建成功，欢迎来到服务器！");
+            $issuer->authed = true;
+            return true;
+        }else{
+            if($GLOBALS['UserDatabase']->check_password($issuer->username, $params[0]) == false){
+                $issuer->sendChat("验证错误，请重新输入！");
+                return false;
+            }
+            $issuer->sendChat("验证成功，欢迎来到服务器！");
+            $issuer->authed = true;
+            return true;
+        }
+    }
 
 	function __destruct(){
 		$this->server->deleteEvent($this->event);

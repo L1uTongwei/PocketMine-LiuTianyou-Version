@@ -71,7 +71,6 @@ class PlayerAPI{
                         switch($e->class){
                             case ENTITY_PLAYER:
                                 $message = " 被 ".$e->name." 杀死了";
-                                AchievementAPI::grantAchievement($data["player"], "loveandpeace");
                                 break;
                             default:
                                 $message = " 被杀了";
@@ -474,7 +473,6 @@ class PlayerAPI{
             "health" => 20,
             "lastIP" => "",
             "lastID" => 0,
-            "achievements" => array(),
         );
 
         if(($GLOBALS['UserDatabase']->get($name, "gamemode") & 0x01) === 1){

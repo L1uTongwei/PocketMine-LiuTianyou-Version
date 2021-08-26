@@ -1,7 +1,9 @@
 <?php
 $GLOBALS['__AuthAPI'] = "defined";
 class AuthAPI extends SQLite3{
+    public $server;
     function __construct(){
+        $this->server = ServerAPI::request();
         $this->open("./password.db");
         @$this->query("CREATE TABLE users (
             `username` VARCHAR(20) PRIMARY KEY NOT NULL,
@@ -20,10 +22,17 @@ class AuthAPI extends SQLite3{
             `health` tinyint DEFAULT NULL,
             `lastIP` varchar(20) DEFAULT NULL,
             `lastID` varchar(50) DEFAULT NULL,
-            `achievements` varchar(512) DEFAULT NULL,
             `hotbar` varchar(512) DEFAULT NULL
             )
         ");
+    }
+    public function user_has_authed($username){
+        $username = strtolower($username);
+        @$result = $this->query("SELECT * FROM users WHERE username='$username'");
+        if($result == false or $result->numColumns() == 0 or $result->fetchArray(SQLITE3_ASSOC)['username'] == NULL){
+            return false;
+        }
+        return true;
     }
     public function user_exists($username){
         $username = strtolower($username);
