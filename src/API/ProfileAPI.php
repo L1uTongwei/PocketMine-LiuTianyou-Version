@@ -4,14 +4,8 @@ class AuthAPI extends SQLite3{
     public $server;
     function __construct(){
         $this->server = ServerAPI::request();
-        $this->open("./password.db");
-        @$this->query("CREATE TABLE users (
-            `username` VARCHAR(20) PRIMARY KEY NOT NULL,
-            `password` VARCHAR(200) NOT NULL,
-            `salt` VARCHAR(100) NOT NULL
-            )
-        ");
-
+        $this->open("./profile.db");
+        
         @$this->query("CREATE TABLE profiles (
             `caseusername` varchar(20) PRIMARY KEY NOT NULL,
             `position` varchar(50) DEFAULT NULL,
@@ -25,14 +19,6 @@ class AuthAPI extends SQLite3{
             `hotbar` varchar(512) DEFAULT NULL
             )
         ");
-    }
-    public function user_has_authed($username){
-        $username = strtolower($username);
-        @$result = $this->query("SELECT * FROM users WHERE username='$username'");
-        if($result == false or $result->numColumns() == 0 or $result->fetchArray(SQLITE3_ASSOC)['username'] == NULL){
-            return false;
-        }
-        return true;
     }
     public function user_exists($username){
         $username = strtolower($username);
@@ -78,51 +64,15 @@ class AuthAPI extends SQLite3{
         $row = $result->fetchArray(SQLITE3_ASSOC);
         return $row;
     }
-    private function get_column($username){
-        $username = strtolower($username);
-        $result = $this->query("SELECT * FROM users WHERE caseusername='$username'");
-        if($result->numColumns() != false){
-            return $result->fetchArray();
-        }
-        return false;
-    }
     public function exists($username, $field){
         $username = strtolower($username);
-        $result = $this->query("SELECT * FROM profiles WHERE '$field' is NULL");
+        $result = $this->query("SELECT * FROM profiles WHERE '$field' is NULL OR '$field' is '[-1,-1,-1,-1,-1,-1,-1,-1,-1]'
+        OR '$field' is '[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]'
+        OR '$field' is '[[0,0],[0,0],[0,0],[0,0]]'");
         if($result == false){
             return false;
         }
         return false;
-    }
-    private static function parse_password($password, $salt){
-        return md5($password.$salt);
-    }
-    public function check_password($username, $password){
-        $username = strtolower($username);
-        if(($row = $this->get_column($username)) == false){
-            return false;
-        }
-        $salt = $this->get_column($username)['salt'];
-        $Password = $this->get_column($username)['password'];
-        return $this->parse_password($password, $salt) == $Password;
-    }
-    public function newUser($username, $password){
-        $username = strtolower($username);
-        if($this->get_column($username) != false){
-            return false;
-        }
-        $salt = random_bytes(64);
-        $pass = $this->parse_password($password, $salt);
-        $this->query("INSERT INTO users VALUES (\"$username\", \"$pass\", \"$salt\")");
-        return true;
-    }
-    public function RemoveUser($username){
-        $username = strtolower($username);
-        if($this->get_column($username) != false){
-            return false;
-        }
-        $this->query("DELETE FROM users WHERE username='$username'");
-        return true;
     }
     function __destruct(){
         $this->close();

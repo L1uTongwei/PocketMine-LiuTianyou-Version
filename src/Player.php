@@ -1220,7 +1220,6 @@ class Player{
 	}
 
 	public function handleDataPacket(RakNetDataPacket $packet){ 
-		//注意：无法控制客户端显示什么，会在控制台显示
 		if($this->connected === false){
 			return;
 		}
@@ -1317,23 +1316,16 @@ class Player{
 				
 				$this->auth = true;
 				$GLOBALS['UserDatabase']->init_user($this->username, $this->level, $this->gamemode, $this->ip, $this->CID);
-				if(!$GLOBALS['UserDatabase']->exists($this->username, "inventory") or ($this->gamemode & 0x01) === 0x01){
-					if(($this->gamemode & 0x01) === 0x01){
-						$inv = array();
-						if(($this->gamemode & 0x02) === 0x02){
-							foreach(BlockAPI::$creative as $item){
-								$inv[] = array(DANDELION, 0, 1);
-							}
-						}else{
-							foreach(BlockAPI::$creative as $item){
-								$inv[] = array($item[0], $item[1], 1);
-							}
-						}
-						$GLOBALS['UserDatabase']->set($this->username, "inventory", $inv);
+				//性能分析：只有创造模式需要重新初始化
+				if(($this->gamemode & 0x01) === 0x01){
+					$inv = array();
+					foreach(BlockAPI::$creative as $item){
+						$inv[] = array($item[0], $item[1], 1);
 					}
+					$GLOBALS['UserDatabase']->set($this->username, "inventory", $inv);
 				}
-				$this->inventory = array();		
-				foreach($GLOBALS['UserDatabase']->get($this->username, "inventory") as $slot => $item){
+				$this->inventory = array();
+				foreach($GLOBALS['UserDatabase']->get($this->username, "inventory") as $slot => $item){ //将背包录入内存
 					if(!is_array($item) or count($item) < 3){
 						$item = array(AIR, 0, 0);
 					}
@@ -1341,13 +1333,9 @@ class Player{
 				}
 
 				$this->armor = array();
-				foreach($GLOBALS['UserDatabase']->get($this->username, "armor") as $slot => $item){
+				foreach($GLOBALS['UserDatabase']->get($this->username, "armor") as $slot => $item){ //盔甲栏录入内存
 					$this->armor[$slot] = BlockAPI::getItem($item[0], $item[1], $item[0] === 0 ? 0:1);
 				}
-				
-				$GLOBALS['UserDatabase']->set($this->username, "lastIP", $this->ip);
-				$GLOBALS['UserDatabase']->set($this->username, "lastID", $this->clientID);
-
 
 				$pk = new LoginStatusPacket;
 				$pk->status = 0;
@@ -1367,7 +1355,7 @@ class Player{
 					$this->slot = 0;
 					$this->hotbar = array();
 				}elseif($GLOBALS['UserDatabase']->exists($this->username, "hotbar")){
-					$this->hotbar = $GLOBALS['UserDatabase']->get($this->username, "hotbar");
+					$this->hotbar = $GLOBALS['UserDatabase']->get($this->username, "hotbar"); //录入物品栏
 					$this->slot = $this->hotbar[0];
 				}else{
 					$this->slot = -1;//0

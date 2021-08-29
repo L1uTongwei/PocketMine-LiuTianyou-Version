@@ -451,30 +451,6 @@ class PlayerAPI{
     }
 
     public function getOffline($name){
-        $iname = strtolower($name);
-        $default = array(
-            "caseusername" => $name,
-            "position" => array(
-                "level" => $this->server->spawn->level->getName(),
-                "x" => $this->server->spawn->x,
-                "y" => $this->server->spawn->y,
-                "z" => $this->server->spawn->z,
-            ),
-            "spawn" => array(
-                "level" => $this->server->spawn->level->getName(),
-                "x" => $this->server->spawn->x,
-                "y" => $this->server->spawn->y,
-                "z" => $this->server->spawn->z,
-            ),
-            "inventory" => array_fill(0, PLAYER_SURVIVAL_SLOTS, array(AIR, 0, 0)),
-			"hotbar" => array(0, -1, -1, -1, -1, -1, -1, -1, -1),
-            "armor" => array_fill(0, 4, array(AIR, 0)),
-            "gamemode" => $this->server->gamemode,
-            "health" => 20,
-            "lastIP" => "",
-            "lastID" => 0,
-        );
-
         if(($GLOBALS['UserDatabase']->get($name, "gamemode") & 0x01) === 1){
             $GLOBALS['UserDatabase']->set($name, "health", 20);
         }
